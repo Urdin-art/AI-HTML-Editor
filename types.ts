@@ -22,6 +22,6 @@ export interface FileItem {
 }
 
 export enum GeminiModel {
-  PRO = 'gemini-1.0-pro',
-  FLASH = 'gemini-flash',
+  PRO = 'gemini-1.5-pro-latest',
+  FLASH = 'gemini-1.5-flash',
 }
