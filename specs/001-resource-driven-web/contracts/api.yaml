@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: AI Web Creator API
+  version: 1.1.0
+paths:
+  /api/files.php:
+    get:
+      summary: List user-uploaded files
+      description: Retrieves a list of files from the `/resources` and `/creations/images` directories.
+      responses:
+        '200':
+          description: A JSON object containing two arrays of file information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resources:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name: { type: string }
+                        path: { type: string }
+                  creations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name: { type: string }
+                        path: { type: string }
+  /api/upload.php:
+    post:
+      summary: Upload a file
+      description: Handles file uploads from the user and saves them to the `/resources` directory.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file: {
+                  type: string,
+                  format: binary
+                }
+      responses:
+        '200':
+          description: File uploaded successfully.
+        '400':
+          description: Bad request (e.g., no file, invalid file type, size limit exceeded).
+
+  /api/save.php:
+    post:
+      summary: Save the webpage and trigger optimization
+      description: Receives the final HTML, saves it, and initiates the image optimization and cleanup workflow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                htmlContent: { type: string }
+                filename: { type: string }
+                usedImages: {
+                  type: array,
+                  items: { type: string }
+                }
+      responses:
+        '200':
+          description: Save process completed successfully.
+        '500':
+          description: Error during the save or optimization process.
