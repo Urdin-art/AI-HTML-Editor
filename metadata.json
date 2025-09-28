@@ -1,0 +1,5 @@
+{
+  "name": "Creador Web con IA",
+  "description": "Una aplicación para crear y editar páginas web de forma interactiva con la ayuda de Gemini. Los usuarios pueden describir la página que desean, cargar una existente desde una URL, y luego refinarla a través de un chat, seleccionando elementos específicos para modificar.",
+  "requestFramePermissions": []
+}

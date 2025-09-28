@@ -1,0 +1,809 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wicca Celtíbera - Conectando con las Raíces Ancestrales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-background: #F0EAD6; /* Light parchment/sand */
+            --color-text-dark: #4A3C30; /* Dark earth brown */
+            --color-primary: #A1523E; /* Darker terracotta/clay */
+            --color-secondary: #C27C5A; /* Lighter terracotta/clay */
+            --color-accent: #E2725B; /* Warm orange-red */
+            --color-oxidized: #708090; /* Oxidized metal gray */
+            --font-heading: 'Cinzel', serif;
+            --font-body: 'Lora', serif;
+            --spacing-unit: 1rem;
+        }
+
+        /* Base styles */
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-background);
+            color: var(--color-text-dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-unit);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Utility classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: calc(var(--spacing-unit) * 2);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--color-text-dark);
+            color: var(--color-background);
+            padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .header .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-menu li {
+            margin-left: calc(var(--spacing-unit) * 1.5);
+        }
+
+        .nav-menu a {
+            color: var(--color-background);
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-accent);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-out;
+        }
+
+        .nav-menu a:hover::after {
+            transform: translateX(0);
+        }
+        
+        /* Hamburger menu for mobile */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001; /* Above other elements */
+        }
+
+        .hamburger-menu span {
+            height: 3px;
+            width: 25px;
+            background-color: var(--color-accent);
+            margin-bottom: 5px;
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--color-background);
+            overflow: hidden;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://picsum.photos/id/1083/1600/900') no-repeat center center/cover;
+            background-attachment: fixed; /* Parallax effect */
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: var(--spacing-unit);
+            color: var(--color-background);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            font-style: italic;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: var(--color-background);
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--color-primary);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+
+        /* Section common styles */
+        .section {
+            padding: calc(var(--spacing-unit) * 4) 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            text-align: center;
+            position: relative;
+            color: var(--color-primary);
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--color-accent);
+            margin: var(--spacing-unit) auto 0;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: calc(var(--spacing-unit) * 3);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-text, .about-image {
+            flex: 1;
+            min-width: 300px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideInUp 0.8s ease-out forwards;
+        }
+
+        .about-text {
+            animation-delay: 0.2s;
+        }
+
+        .about-image {
+            max-width: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Tradition Section */
+        .tradition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: calc(var(--spacing-unit) * 2);
+        }
+
+        .tradition-item {
+            background-color: var(--color-background);
+            padding: calc(var(--spacing-unit) * 2);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--color-secondary);
+            opacity: 0;
+            transform: scale(0.95);
+            animation: zoomIn 0.6s ease-out forwards;
+        }
+
+        .tradition-item:nth-child(1) { animation-delay: 0.1s; }
+        .tradition-item:nth-child(2) { animation-delay: 0.2s; }
+        .tradition-item:nth-child(3) { animation-delay: 0.3s; }
+        .tradition-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .tradition-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .tradition-item h3 {
+            color: var(--color-primary);
+            font-size: 1.8rem;
+            margin-bottom: var(--spacing-unit);
+        }
+
+        .tradition-item p {
+            font-size: 1rem;
+            color: var(--color-text-dark);
+        }
+
+        /* Multimedia Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: calc(var(--spacing-unit) * 1.5);
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: var(--color-background);
+            padding: var(--spacing-unit);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: calc(var(--spacing-unit) * 3);
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .contact-form-container, .contact-info {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            background-color: var(--color-secondary);
+            padding: calc(var(--spacing-unit) * 2);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            color: var(--color-background);
+            animation: slideInUp 0.8s ease-out forwards;
+        }
+        
+        .contact-form-container {
+            animation-delay: 0.2s;
+        }
+
+        .contact-info {
+            animation-delay: 0.4s;
+            background-color: var(--color-primary);
+        }
+
+        .contact-form-container h3, .contact-info h3 {
+            color: var(--color-background);
+            margin-top: 0;
+            margin-bottom: calc(var(--spacing-unit) * 1.5);
+            font-size: 1.8rem;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: var(--spacing-unit);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 4px;
+            background-color: rgba(255,255,255,0.1);
+            color: var(--color-background);
+            font-family: var(--font-body);
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .contact-form input[type="text"]::placeholder,
+        .contact-form input[type="email"]::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .contact-form button {
+            width: 100%;
+            background-color: var(--color-accent);
+            color: var(--color-background);
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .contact-form button:hover {
+            background-color: var(--color-background);
+            color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .contact-info p {
+            margin-bottom: var(--spacing-unit);
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .contact-info p i {
+            margin-right: 10px;
+            color: var(--color-accent);
+            font-size: 1.3rem;
+        }
+
+        .social-links {
+            margin-top: calc(var(--spacing-unit) * 2);
+            display: flex;
+            gap: var(--spacing-unit);
+        }
+
+        .social-links a {
+            color: var(--color-background);
+            font-size: 1.8rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--color-accent);
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-text-dark);
+            color: var(--color-oxidized);
+            padding: calc(var(--spacing-unit) * 2);
+            text-align: center;
+            font-size: 0.9rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .footer .footer-links {
+            margin-top: var(--spacing-unit);
+            margin-bottom: var(--spacing-unit);
+        }
+
+        .footer .footer-links a {
+            color: var(--color-oxidized);
+            margin: 0 0.8rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer .footer-links a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .section h2 {
+                font-size: 2rem;
+            }
+            .tradition-grid, .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: var(--spacing-unit);
+            }
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--color-text-dark);
+                box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .nav-menu li {
+                margin: 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            .nav-menu li:last-child {
+                border-bottom: none;
+            }
+            .nav-menu a {
+                display: block;
+                padding: 1rem calc(var(--spacing-unit) * 2);
+                text-align: center;
+            }
+            .hamburger-menu {
+                display: flex;
+            }
+            .hamburger-menu.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            .hamburger-menu.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger-menu.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .about-content, .contact-content {
+                flex-direction: column;
+                gap: calc(var(--spacing-unit) * 2);
+            }
+            .about-image {
+                max-width: 100%;
+            }
+            .contact-form-container, .contact-info {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+            .section h2 {
+                font-size: 1.8rem;
+            }
+            .tradition-grid, .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .header .logo {
+                font-size: 1.5rem;
+            }
+            .container {
+                padding: calc(var(--spacing-unit) * 1.5);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Wicca Celtíbera</div>
+        <nav>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#prensa">Prensa</a></li>
+                <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
+                <li><a href="#tradicion">Tradición</a></li>
+                <li><a href="#multimedia">Multimedia</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Wicca Celtíbera: Conectando con las Raíces Ancestrales</h1>
+                <p>Descubre la sabiduría de nuestros ancestros y la magia de la tierra en armonía con los ciclos naturales.</p>
+                <a href="#sobre-nosotros" class="btn">Explora Nuestra Tradición</a>
+            </div>
+        </section>
+
+        <section id="sobre-nosotros" class="section">
+            <div class="container">
+                <h2>Sobre Nosotros</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>La Wicca Celtíbera es una confesión religiosa que fusiona las antiguas tradiciones paganas de la península ibérica pre-romana con los principios de la Wicca moderna. Nos inspiramos en los cultos a la naturaleza, la veneración de los ancestros y la rica mitología de los pueblos celtíberos, celtas e íberos.</p>
+                        <p>Nuestra práctica se centra en la conexión profunda con la tierra, sus ciclos y sus espíritus. Honramos a la Diosa y al Dios, manifestados en el paisaje, los ríos, las montañas y los bosques sagrados. Buscamos el equilibrio, la armonía y el crecimiento personal a través de rituales estacionales, la meditación y el estudio de la sabiduría ancestral.</p>
+                        <p>Creemos en el respeto a todas las formas de vida y en la responsabilidad individual de cuidar nuestro planeta. A través de la comunidad, el aprendizaje y la celebración de la vida, la Wicca Celtíbera ofrece un camino espiritual auténtico y enraizado en la rica herencia cultural de nuestra tierra.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://picsum.photos/id/1070/800/600" alt="Paisaje natural rocoso, inspiración celtíbera">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tradicion" class="section">
+            <div class="container">
+                <h2>Nuestra Tradición</h2>
+                <div class="tradition-grid">
+                    <div class="tradition-item">
+                        <h3>Los Ciclos de la Tierra</h3>
+                        <p>Celebramos los ocho Sabbats, reflejando las estaciones y el eterno renacer de la vida. Desde Samhain hasta Litha, cada festividad nos conecta con el pulso vital de la naturaleza.</p>
+                    </div>
+                    <div class="tradition-item">
+                        <h3>Ancestros y Deidades</h3>
+                        <p>Honramos a los antiguos espíritus de la tierra y a las deidades celtíberas, buscando su guía y sabiduría en nuestro camino. La veneración ancestral es un pilar fundamental.</p>
+                    </div>
+                    <div class="tradition-item">
+                        <h3>Magia Natural y Rituales</h3>
+                        <p>Nuestra magia es la magia de la tierra, de las plantas, las piedras y los elementos. Practicamos rituales sencillos y profundos para la sanación, la protección y la manifestación.</p>
+                    </div>
+                    <div class="tradition-item">
+                        <h3>Ética y Respeto</h3>
+                        <p>Seguimos el Rede Wiccana, "Mientras a nadie dañes, haz tu voluntad", y nos comprometemos con el respeto a la naturaleza y a todos los seres vivos. La responsabilidad es clave.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="multimedia" class="section">
+            <div class="container">
+                <h2>Galería Multimedia</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://picsum.photos/id/1018/400/300" alt="Bosque místico al amanecer">
+                        <div class="gallery-caption">Bosque sagrado</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://picsum.photos/id/1069/400/300" alt="Ruinas antiguas, vestigios celtíberos">
+                        <div class="gallery-caption">Antiguas ruinas</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://picsum.photos/id/1079/400/300" alt="Pinturas rupestres">
+                        <div class="gallery-caption">Arte rupestre ancestral</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://picsum.photos/id/1084/400/300" alt="Río en un paisaje natural">
+                        <div class="gallery-caption">Espíritu del río</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://picsum.photos/id/103/400/300" alt="Círculo de piedras">
+                        <div class="gallery-caption">Círculo mágico</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://picsum.photos/id/104/400/300" alt="Amanecer sobre las montañas">
+                        <div class="gallery-caption">La salida del sol</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="section">
+            <div class="container">
+                <h2>Contacta con Nosotros</h2>
+                <div class="contact-content">
+                    <div class="contact-form-container">
+                        <h3>Envíanos un Mensaje</h3>
+                        <form class="contact-form">
+                            <label for="name">Nombre:</label>
+                            <input type="text" id="name" name="name" placeholder="Tu nombre completo" required>
+
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" placeholder="tu.email@ejemplo.com" required>
+
+                            <label for="message">Mensaje:</label>
+                            <textarea id="message" name="message" rows="6" placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+                            <button type="submit">Enviar Mensaje</button>
+                        </form>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Nuestra Información</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Dirección: Camino Antiguo 12, Comarca Celta, España</p>
+                        <p><i class="fas fa-phone-alt"></i> Teléfono: +34 123 456 789</p>
+                        <p><i class="fas fa-envelope"></i> Email: info@wiccaceltibera.org</p>
+                        <p><i class="fas fa-clock"></i> Horario de atención: L-V, 9:00 - 18:00</p>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 Wicca Celtíbera. Todos los derechos reservados.</p>
+            <div class="footer-links">
+                <a href="#blog">Blog</a>
+                <a href="#prensa">Prensa</a>
+                <a href="#sobre-nosotros">Sobre nosotros</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        // Hamburger menu functionality
+        document.querySelector('.hamburger-menu').addEventListener('click', () => {
+            document.querySelector('.nav-menu').classList.toggle('active');
+            document.querySelector('.hamburger-menu').classList.toggle('active');
+        });
+
+        // Close nav menu when a link is clicked (for mobile)
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navMenu = document.querySelector('.nav-menu');
+                const hamburgerMenu = document.querySelector('.hamburger-menu');
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburgerMenu.classList.remove('active');
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>
+```
