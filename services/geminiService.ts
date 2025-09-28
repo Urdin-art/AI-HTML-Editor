@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { ChatMessage, MessageAuthor, GeminiModel } from "../types";
+import { ChatMessage, MessageAuthor, GeminiModel, FileItem } from "../types";
 
 const SELECTION_CSS = `
 .gemini-selectable {
@@ -90,4 +90,4 @@ const getInjectionInstructions = () => `INSTRUCCIONES DE INYECCIÓN CRÍTICAS:
     <script>
     ${SELECTION_JS}
     </script>
-3.  Añade la clase 
+3.  Añade la clase
