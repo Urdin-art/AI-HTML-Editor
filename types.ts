@@ -15,7 +15,13 @@ export interface ChatMessage {
   content: string;
 }
 
+export interface FileItem {
+  name: string;
+  path: string;
+  type: 'resource' | 'creation';
+}
+
 export enum GeminiModel {
-  PRO = 'gemini-pro',
-  FLASH = 'gemini-2.5-flash',
+  PRO = 'gemini-1.0-pro',
+  FLASH = 'gemini-flash',
 }

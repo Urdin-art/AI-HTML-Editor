@@ -1,19 +1,12 @@
 <!--
 Sync Impact Report:
-- Version change: 0.0.0 → 1.0.0
+- Version change: 1.0.0 → 1.1.0
 - List of modified principles:
-  - [PRINCIPLE_1_NAME] → Principle I: Resource-Driven Content Generation
-  - [PRINCIPLE_2_NAME] → Principle II: Controlled File System Interaction
-  - [PRINCIPLE_3_NAME] → Principle III: Structured Save and Optimization Workflow
-  - [PRINCIPLE_4_NAME] → Principle IV: User Interface for Resource Management
-  - [PRINCIPLE_5_NAME] → Principle V: Contextual Prompts
+  - Principle I: Resource-Driven Content Generation (clarified content vs. metadata)
+  - Principle V: Contextual Prompts (clarified content vs. metadata)
 - Added sections: None
 - Removed sections: None
-- Templates requiring updates:
-  - ✅ .specify/templates/plan-template.md
-  - ✅ .specify/templates/spec-template.md
-  - ✅ .specify/templates/tasks-template.md
-  - ✅ .specify/templates/commands/implement.toml
+- Templates requiring updates: [Will be re-evaluated]
 - Follow-up TODOs: None
 -->
 # AI Web Creator Constitution
@@ -21,7 +14,7 @@ Sync Impact Report:
 ## Core Principles
 
 ### Principle I: Resource-Driven Content Generation
-The agent MUST use user-provided files (images, documents) from the `resources` and `creations/images` folders to generate web page content. It will use these resources to replace placeholder content like text and images. If the intended use of a file is ambiguous, the agent MUST ask the user for clarification.
+The agent MUST use user-provided files to generate web page content. For documents (txt, md, json, csv), it will receive the full text content. For images, it will receive metadata (name, path, dimensions). It MUST use these resources to replace placeholder content. If the intended use of a file is ambiguous, the agent MUST ask the user for clarification. If the user asks for a file not in the context, the agent MUST ask the user to select it.
 
 ### Principle II: Controlled File System Interaction
 The agent's file system operations are strictly controlled. It is permitted to read from the `resources` and `creations` directories (including subdirectories) to gather context. However, it MUST NOT perform any user-requested file manipulation (create, delete, modify). All write operations are restricted to the automated "Save" workflow.
@@ -40,9 +33,13 @@ The agent MUST refuse any user requests to bypass this structured process.
 The application UI MUST provide components for resource management on both the home and editor screens. This includes:
 - A file uploader for up to 10 files, which will be saved to the `resources` directory.
 - A tabbed view to display selectable lists of files from the `resources` (default: selected) and `creations/images` (default: unselected) directories.
+- UI indicators MUST be displayed in the chat input area to show when documents or images are selected.
 
 ### Principle V: Contextual Prompts
-The list of user-selected files from the resource management UI MUST be included in every prompt sent to the AI, for both initial page creation and subsequent modifications, to ensure the agent has the necessary context.
+The context provided to the AI in each prompt MUST include:
+- For selected documents (`.txt`, `.md`, `.csv`, `.json`): The full, plain-text content of the file, up to a specified total limit.
+- For selected images: The file name, path, and key metadata (e.g., format, dimensions).
+This information MUST be clearly labeled to inform the agent of its origin and purpose.
 
 ## Development Workflow
 
@@ -59,4 +56,4 @@ This constitution is the primary source of truth for the project's operational l
   - **PATCH**: Clarifications, typo fixes, or non-functional refinements.
 - **Compliance**: All agent actions and application logic must be verifiable against this constitution.
 
-**Version**: 1.0.0 | **Ratified**: 2025-09-28 | **Last Amended**: 2025-09-28
+**Version**: 1.1.0 | **Ratified**: 2025-09-28 | **Last Amended**: 2025-09-28

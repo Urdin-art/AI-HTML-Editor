@@ -7,7 +7,7 @@
 ...
 
 ## Summary
-This plan outlines the implementation of a resource management system for the AI Web Creator. It will allow users to upload images and documents, which the AI can then use for webpage generation. The plan includes creating new frontend components in React, backend PHP scripts for file handling and image optimization (via an external service), and defining the API contracts between them. The entire process adheres to the project constitution.
+This plan outlines the implementation of a resource management system for the AI Web Creator. It will allow users to upload images and documents. A new backend endpoint will be created to read the content of selected documents and the metadata of selected images, providing a rich context to the AI for webpage generation. The plan also includes the previously defined image optimization workflow.
 
 ## Technical Context
 **Language/Version**: TypeScript 5.8.2, React 19.1.1, PHP 8.1+
@@ -23,11 +23,11 @@ This plan outlines the implementation of a resource management system for the AI
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- **Principle I (Resource-Driven Generation)**: Yes, the plan is centered around using files from `/resources` and `/creations/images`.
+- **Principle I (Resource-Driven Generation)**: Yes, the plan now includes injecting full text content and image metadata.
 - **Principle II (Controlled File System)**: Yes, the plan restricts file writes to the defined PHP scripts and save workflow.
 - **Principle III (Structured Save Workflow)**: Yes, the plan details the optimization, path rewriting, and cleanup sequence.
-- **Principle IV (UI for Resource Management)**: Yes, a new `FileManager` component is planned.
-- **Principle V (Contextual Prompts)**: Yes, the plan includes passing selected file info to the agent.
+- **Principle IV (UI for Resource Management)**: Yes, a new `FileManager` component and UI indicators are planned.
+- **Principle V (Contextual Prompts)**: Yes, the plan is now centered around providing detailed, structured context to the AI.
 
 ## Project Structure
 
@@ -48,6 +48,7 @@ specs/001-resource-driven-web/
 # Web application (frontend + backend)
 api/                  # Existing PHP backend directory
 ├── files.php         # New: Lists files from resources/ and creations/images/
+├── context.php       # New: Reads content/metadata for selected files
 ├── upload.php        # New: Handles multipart file uploads to resources/
 └── save.php          # Modified: To orchestrate the optimization and save workflow
 
@@ -58,35 +59,25 @@ resources/            # New: For user-uploaded temporary files
 
 src/                  # Existing React frontend directory
 └── components/
-    └── FileManager.tsx # New: UI for upload and file selection
+    ├── FileManager.tsx # New: UI for upload and file selection
+    └── icons/            # New: Icons for file type indicators in chat
 ```
 
-**Structure Decision**: The project is a web application with a React frontend and a PHP backend. New backend scripts will be added to the existing `api/` directory, and a new `FileManager.tsx` component will be created on the frontend. Two new root directories, `resources/` and `creations/`, will be used for file storage as defined in the spec.
+**Structure Decision**: The project is a web application with a React frontend and a PHP backend. New backend scripts will be added to the existing `api/` directory, including a new `context.php` for preparing AI context. New frontend components and icons will also be added.
 
 ## Phase 0: Outline & Research
-1. **Extract unknowns**: The primary unknowns are the choice of an external image optimization service and a frontend testing framework.
-2. **Generate research tasks**: These have been created in `research.md`.
-3. **Consolidate findings**: The decisions from the research will be documented in `research.md` before implementation begins.
-
-**Output**: [research.md](./research.md) with all NEEDS CLARIFICATION resolved
+...
 
 ## Phase 1: Design & Contracts
-*Prerequisites: research.md complete*
-
-1. **Data Model**: Entities `UserResource`, `OptimizedImage`, and `DisplayFile` are defined in `data-model.md`.
-2. **API Contracts**: An OpenAPI v3 spec has been created in `contracts/api.yaml`, defining endpoints for listing, uploading, and saving files.
-3. **Quickstart Guide**: An end-to-end user journey has been documented in `quickstart.md`.
-
-**Output**: [data-model.md](./data-model.md), [contracts/api.yaml](./contracts/api.yaml), [quickstart.md](./quickstart.md)
+...
 
 ## Phase 2: Task Planning Approach
 *This section describes what the /tasks command will do - DO NOT execute during /plan*
 
 **Task Generation Strategy**:
-- Decompose the feature based on the project structure and API contracts.
-- Create frontend tasks for the `FileManager.tsx` component, including UI, state management, and API calls.
-- Create backend tasks for each PHP script (`files.php`, `upload.php`, `save.php`).
-- Create tasks for integrating the frontend and backend.
+- Decompose the feature based on the updated project structure and API contracts.
+- Create frontend tasks for the `FileManager.tsx` component, UI indicators, and API calls to the new `context.php` endpoint.
+- Create backend tasks for each PHP script (`files.php`, `upload.php`, `context.php`, `save.php`).
 - Follow a TDD approach where applicable, starting with failing tests for new components.
 
 **Ordering Strategy**:

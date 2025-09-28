@@ -98,6 +98,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ messages, onSendMessage, onClearM
             disabled={isLoading || cooldown > 0}
           />
           <button
+            data-testid="send-button"
             onClick={handleSend}
             className="absolute right-3 bottom-3 p-2 bg-accent text-white rounded-full hover:bg-rust disabled:bg-stone-DEFAULT disabled:cursor-not-allowed transition-all duration-300"
             disabled={isLoading || !input.trim() || cooldown > 0}

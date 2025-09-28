@@ -1,14 +1,17 @@
 
 import React, { useState } from 'react';
 import LoadingSpinner from './LoadingSpinner';
+import FileManager from './FileManager';
+import { FileItem } from '../types';
 
 interface HomeScreenProps {
   onCreateFromPrompt: (prompt: string) => void;
   onCreateFromUrl: (url: string) => void;
   isLoading: boolean;
+  onFileSelectionChange: (files: FileItem[]) => void;
 }
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ onCreateFromPrompt, onCreateFromUrl, isLoading }) => {
+const HomeScreen: React.FC<HomeScreenProps> = ({ onCreateFromPrompt, onCreateFromUrl, isLoading, onFileSelectionChange }) => {
   const [prompt, setPrompt] = useState('');
   const [url, setUrl] = useState('');
 
@@ -70,6 +73,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onCreateFromPrompt, onCreateFro
                             Importar y Editar
                         </button>
                     </form>
+                </div>
+                <div className="md:col-span-2">
+                    <FileManager onSelectionChange={onFileSelectionChange} />
                 </div>
             </div>
         )}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { AppView, ChatMessage, MessageAuthor, GeminiModel } from './types';
+import { AppView, ChatMessage, MessageAuthor, GeminiModel, FileItem } from './types';
 import HomeScreen from './components/HomeScreen';
 import EditorScreen from './components/EditorScreen';
 import ApiKeyScreen from './components/ApiKeyScreen';
@@ -13,6 +13,10 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [model, setModel] = useState<GeminiModel>(GeminiModel.FLASH);
+  const [selectedFiles, setSelectedFiles] = useState<FileItem[]>([]);
+  const [aiContext, setAiContext] = useState<string>("");
+  const [docCount, setDocCount] = useState<number>(0);
+  const [imgCount, setImgCount] = useState<number>(0);
 
   useEffect(() => {
     const savedApiKey = localStorage.getItem('gemini_api_key');
@@ -34,6 +38,56 @@ const App: React.FC = () => {
       localStorage.removeItem('geminiWebBuilderChat');
     }
   }, [chatHistory]);
+
+  const handleFileSelectionChange = async (files: FileItem[]) => {
+    setSelectedFiles(files);
+
+    const docTypes = ['txt', 'md', 'csv', 'json'];
+    const imgTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+    let docs = 0;
+    let imgs = 0;
+
+    files.forEach(file => {
+        const ext = file.name.split('.').pop()?.toLowerCase() || '';
+        if (docTypes.includes(ext)) {
+            docs++;
+        } else if (imgTypes.includes(ext)) {
+            imgs++;
+        }
+    });
+
+    setDocCount(docs);
+    setImgCount(imgs);
+
+    if (files.length > 0) {
+        try {
+            const response = await fetch('/api/context.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ files: files.map(f => f.path) })
+            });
+            const contextData = await response.json();
+            // Simple formatting of the context for the AI prompt
+            const formattedContext = contextData.map(item => {
+                if (item.type === 'document') {
+                    return `Content from ${item.name}:\n${item.content}`;
+                }
+                if (item.type === 'image') {
+                    return `Metadata for ${item.name}: ${item.metadata.width}x${item.metadata.height}, ${item.metadata.mime}`;
+                }
+                return '';
+            }).join('\n\n');
+            setAiContext(formattedContext);
+        } catch (error) {
+            console.error("Error fetching context:", error);
+            alert("Error al procesar los archivos de contexto. Por favor, inténtalo de nuevo.");
+            setAiContext("");
+        }
+    } else {
+        setAiContext("");
+    }
+  };
 
   const handleApiKeySubmit = (newApiKey: string) => {
     localStorage.setItem('gemini_api_key', newApiKey);
@@ -60,13 +114,13 @@ const App: React.FC = () => {
   const handleCreateFromPrompt = (prompt: string) => {
     if (!apiKey) return;
     setChatHistory([{ author: MessageAuthor.USER, content: prompt }]);
-    startCreation(geminiService.generateInitialCode(apiKey, model, prompt));
+    startCreation(geminiService.generateInitialCode(apiKey, model, prompt, aiContext));
   };
 
   const handleCreateFromUrl = (url: string) => {
     if (!apiKey) return;
     setChatHistory([{ author: MessageAuthor.USER, content: `Cargar y modificar la página desde la URL: ${url}` }]);
-    startCreation(geminiService.processUrlHtml(apiKey, model, url));
+    startCreation(geminiService.processUrlHtml(apiKey, model, url, aiContext));
   };
 
   const handleSendMessage = async (message: string) => {
@@ -76,7 +130,7 @@ const App: React.FC = () => {
     setChatHistory(updatedHistory);
     setIsLoading(true);
 
-    const response = await geminiService.modifyCode(apiKey, model, htmlContent, message, updatedHistory);
+    const response = await geminiService.modifyCode(apiKey, model, htmlContent, message, updatedHistory, aiContext);
     
     let cleanResponse = response.trim();
     if (cleanResponse.startsWith('```html')) {
@@ -110,7 +164,22 @@ const App: React.FC = () => {
   
   const handleSave = async (filename: string) => {
     if (!apiKey) return;
+
+    const hasResources = selectedFiles.some(f => f.type === 'resource');
+    if (hasResources) {
+        const userConfirmed = window.confirm("Se guardará una copia optimizada de las imágenes utilizadas en el diseño y se eliminarán todos los archivos subidos. ¿Quieres continuar?");
+        if (!userConfirmed) {
+            return;
+        }
+    }
+
     setIsSaving(true);
+
+    // Find which selected files are actually used in the HTML
+    const usedImages = selectedFiles.filter(file => 
+        htmlContent.includes(file.path) || htmlContent.includes(file.name)
+    );
+
     let cleanHtml = await geminiService.cleanCodeForSave(apiKey, model, htmlContent);
     
     if (cleanHtml.startsWith('```html')) {
@@ -134,7 +203,8 @@ const App: React.FC = () => {
         },
         body: JSON.stringify({ 
           htmlContent: cleanHtml, 
-          filename: filename 
+          filename: filename,
+          usedImages: usedImages.map(f => f.path) // Send paths of used images
         }),
       });
 
@@ -154,8 +224,10 @@ const App: React.FC = () => {
     } catch (err) {
       if (err instanceof Error) {
         console.error('Error saving file:', err);
+        alert(`Error al guardar: ${err.message}`);
         setChatHistory(prev => [...prev, { author: MessageAuthor.SYSTEM, content: `Error al guardar: ${err.message}` }]);
       } else {
+        alert('Ocurrió un error inesperado al guardar el archivo.');
         setChatHistory(prev => [...prev, { author: MessageAuthor.SYSTEM, content: 'Ocurrió un error inesperado al guardar el archivo.' }]);
       }
     }
@@ -167,7 +239,7 @@ const App: React.FC = () => {
   }
 
   if (view === AppView.HOME) {
-    return <HomeScreen onCreateFromPrompt={handleCreateFromPrompt} onCreateFromUrl={handleCreateFromUrl} isLoading={isLoading} />;
+    return <HomeScreen onCreateFromPrompt={handleCreateFromPrompt} onCreateFromUrl={handleCreateFromUrl} isLoading={isLoading} onFileSelectionChange={handleFileSelectionChange} />;
   }
 
   return (
@@ -182,6 +254,9 @@ const App: React.FC = () => {
       isSaving={isSaving}
       currentModel={model}
       onModelChange={setModel}
+      onFileSelectionChange={handleFileSelectionChange}
+      docCount={docCount}
+      imgCount={imgCount}
     />
   );
 };

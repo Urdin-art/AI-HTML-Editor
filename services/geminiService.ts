@@ -76,7 +76,7 @@ const getInitialSystemPrompt = () => `Eres un desarrollador web experto y un asi
 - Interactúa con el usuario para entender sus preferencias de estilo, colores, y contenido. Haz preguntas si la petición inicial es vaga.
 - Crea siempre páginas HTML de un solo archivo. TODO el CSS debe estar en una etiqueta <style> y TODO el JS en una etiqueta <script> dentro del mismo archivo HTML.
 - Para los iconos, utiliza SVGs incrustados (inline SVG) o caracteres Unicode. NO uses librerías de iconos externas como Font Awesome (ej: kit.fontawesome.com) para evitar problemas de CORS.
-- Utiliza imágenes de archivo gratuitas de https://picsum.photos con rutas absolutas, a menos que el usuario proporcione una URL específica.
+- Utiliza imágenes de archivo gratuitas de https://picsum.photos con rutas absolutas, a menos que el usuario proporcione una URL específica o archivos de imagen locales.
 - Las páginas deben tener un diseño cuidado, ser responsivas y utilizar animaciones sutiles y efectos para mejorar la experiencia.
 - Siempre que generes o modifiques código HTML, debes incluir el mecanismo de selección de elementos.`;
 
@@ -92,11 +92,12 @@ const getInjectionInstructions = () => `INSTRUCCIONES DE INYECCIÓN CRÍTICAS:
     </script>
 3.  Añade la clase "gemini-selectable" a los elementos importantes de la página (sections, headers, divs principales, bloques de texto, imágenes, etc.) para que puedan ser seleccionados por el usuario.`;
 
-
-export const generateInitialCode = async (apiKey: string, model: GeminiModel, prompt: string): Promise<string> => {
+export const generateInitialCode = async (apiKey: string, model: GeminiModel, prompt: string, aiContext: string): Promise<string> => {
     const ai = new GoogleGenAI({ apiKey });
     const fullPrompt = `
     ${getInitialSystemPrompt()}
+
+    ${aiContext}
 
     La petición del usuario es: "${prompt}".
 
@@ -118,10 +119,12 @@ export const generateInitialCode = async (apiKey: string, model: GeminiModel, pr
     }
 };
 
-export const processUrlHtml = async (apiKey: string, model: GeminiModel, url: string): Promise<string> => {
+export const processUrlHtml = async (apiKey: string, model: GeminiModel, url: string, aiContext: string): Promise<string> => {
     const ai = new GoogleGenAI({ apiKey });
     const fullPrompt = `
     ${getInitialSystemPrompt()}
+
+    ${aiContext}
 
     Primero, obtén el contenido HTML de esta URL: ${url}.
     Luego, modifica ese HTML para añadir el mecanismo de selección de elementos.
@@ -142,7 +145,7 @@ export const processUrlHtml = async (apiKey: string, model: GeminiModel, url: st
     }
 };
 
-export const modifyCode = async (apiKey: string, model: GeminiModel, fullHtml: string, userPrompt: string, chatHistory: ChatMessage[]): Promise<string> => {
+export const modifyCode = async (apiKey: string, model: GeminiModel, fullHtml: string, userPrompt: string, chatHistory: ChatMessage[], aiContext: string): Promise<string> => {
     const ai = new GoogleGenAI({ apiKey });
     const historyText = chatHistory
         .filter(msg => msg.author !== MessageAuthor.SYSTEM)
@@ -154,6 +157,8 @@ export const modifyCode = async (apiKey: string, model: GeminiModel, fullHtml: s
     
     HISTORIAL DE LA CONVERSACIÓN:
     ${historyText}
+
+    ${aiContext}
 
     CÓDIGO HTML ACTUAL:
     \`\`\`html

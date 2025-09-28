@@ -1,0 +1,15 @@
+{
+    "name": "urdi-art/ai-web-creator-api",
+    "description": "Backend API for the AI Web Creator.",
+    "type": "project",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Urdin",
+            "email": "urdin@urdin.art"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.10"
+    }
+}

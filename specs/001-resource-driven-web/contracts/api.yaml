@@ -3,6 +3,28 @@ info:
   title: AI Web Creator API
   version: 1.1.0
 paths:
+  /api/context.php:
+    post:
+      summary: Prepare context from selected files
+      description: Retrieves the content of selected documents and metadata for selected images.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items: { type: string }
+      responses:
+        '200':
+          description: A JSON object containing the prepared context.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Context from file1.txt: ...\nMetadata for image1.jpg: ..."
   /api/files.php:
     get:
       summary: List user-uploaded files

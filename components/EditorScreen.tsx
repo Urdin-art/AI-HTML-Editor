@@ -1,11 +1,13 @@
 
 import React from 'react';
-import { ChatMessage, GeminiModel } from '../types';
+import { ChatMessage, GeminiModel, FileItem } from '../types';
 import IframePreview from './IframePreview';
 import ChatPanel from './ChatPanel';
 import SavePanel from './SavePanel';
 import LoadingSpinner from './LoadingSpinner';
 import ModelSelector from './ModelSelector';
+import FileManager from './FileManager';
+import ChatInputAddons from './ChatInputAddons';
 
 interface EditorScreenProps {
   htmlContent: string;
@@ -18,6 +20,9 @@ interface EditorScreenProps {
   isSaving: boolean;
   currentModel: GeminiModel;
   onModelChange: (model: GeminiModel) => void;
+  onFileSelectionChange: (files: FileItem[]) => void;
+  docCount: number;
+  imgCount: number;
 }
 
 const EditorScreen: React.FC<EditorScreenProps> = ({
@@ -31,6 +36,9 @@ const EditorScreen: React.FC<EditorScreenProps> = ({
   isSaving,
   currentModel,
   onModelChange,
+  onFileSelectionChange,
+  docCount,
+  imgCount,
 }) => {
   return (
     <div className="relative h-screen w-screen grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 bg-stone-light">
@@ -40,14 +48,20 @@ const EditorScreen: React.FC<EditorScreenProps> = ({
         </div>
         <SavePanel onSave={onSave} isLoading={isSaving} />
       </div>
-      <div className="col-span-1 flex flex-col h-full">
+      <div className="col-span-1 flex flex-col h-full bg-white shadow-lg">
+        <div className="p-4 border-b">
+            <FileManager onSelectionChange={onFileSelectionChange} />
+        </div>
         <ModelSelector currentModel={currentModel} onModelChange={onModelChange} />
-        <ChatPanel
-          messages={chatMessages}
-          onSendMessage={onSendMessage}
-          onClearMemory={onClearMemory}
-          isLoading={isChatLoading}
-        />
+        <div className="relative flex-grow">
+            <ChatPanel
+              messages={chatMessages}
+              onSendMessage={onSendMessage}
+              onClearMemory={onClearMemory}
+              isLoading={isChatLoading}
+            />
+            <ChatInputAddons docCount={docCount} imgCount={imgCount} />
+        </div>
       </div>
        {(isChatLoading || isSaving) && (
         <div className="absolute inset-0 bg-stone-dark bg-opacity-40 flex justify-center items-center z-50 backdrop-blur-sm">
