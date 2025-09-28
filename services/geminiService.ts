@@ -93,7 +93,8 @@ const getInjectionInstructions = () => `INSTRUCCIONES DE INYECCIÓN CRÍTICAS:
 3.  Añade la clase "gemini-selectable" a los elementos importantes de la página (sections, headers, divs principales, bloques de texto, imágenes, etc.) para que puedan ser seleccionados por el usuario.`;
 
 export const generateInitialCode = async (apiKey: string, model: GeminiModel, prompt: string, aiContext: string): Promise<string> => {
-    const ai = new GoogleGenAI({ apiKey });
+    const genAI = new GoogleGenAI(apiKey);
+    const generativeModel = genAI.getGenerativeModel({ model: model });
     const fullPrompt = `
     ${getInitialSystemPrompt()}
 
@@ -108,11 +109,9 @@ export const generateInitialCode = async (apiKey: string, model: GeminiModel, pr
     Responde ÚNICAMENTE con el código HTML completo. No incluyas explicaciones adicionales.`;
 
     try {
-        const response = await ai.models.generateContent({
-            model,
-            contents: fullPrompt
-        });
-        return response.text;
+        const result = await generativeModel.generateContent(fullPrompt);
+        const response = await result.response;
+        return response.text();
     } catch (error) {
         console.error("Error generating initial code:", error);
         return "<html><body><h1>Error al generar el código. Revisa tu API Key y vuelve a intentarlo.</h1></body></html>";
@@ -120,7 +119,8 @@ export const generateInitialCode = async (apiKey: string, model: GeminiModel, pr
 };
 
 export const processUrlHtml = async (apiKey: string, model: GeminiModel, url: string, aiContext: string): Promise<string> => {
-    const ai = new GoogleGenAI({ apiKey });
+    const genAI = new GoogleGenAI(apiKey);
+    const generativeModel = genAI.getGenerativeModel({ model: model });
     const fullPrompt = `
     ${getInitialSystemPrompt()}
 
@@ -134,11 +134,9 @@ export const processUrlHtml = async (apiKey: string, model: GeminiModel, url: st
     Responde ÚNICAMENTE con el código HTML completo y modificado. No incluyas explicaciones adicionales.`;
     
     try {
-        const response = await ai.models.generateContent({
-            model,
-            contents: fullPrompt
-        });
-        return response.text;
+        const result = await generativeModel.generateContent(fullPrompt);
+        const response = await result.response;
+        return response.text();
     } catch (error) {
         console.error("Error processing URL:", error);
         return "<html><body><h1>Error al procesar la URL. Asegúrate de que es accesible públicamente y que tu API Key es correcta.</h1></body></html>";
@@ -146,7 +144,8 @@ export const processUrlHtml = async (apiKey: string, model: GeminiModel, url: st
 };
 
 export const modifyCode = async (apiKey: string, model: GeminiModel, fullHtml: string, userPrompt: string, chatHistory: ChatMessage[], aiContext: string): Promise<string> => {
-    const ai = new GoogleGenAI({ apiKey });
+    const genAI = new GoogleGenAI(apiKey);
+    const generativeModel = genAI.getGenerativeModel({ model: model });
     const historyText = chatHistory
         .filter(msg => msg.author !== MessageAuthor.SYSTEM)
         .map(msg => `${msg.author}: ${msg.content}`)
@@ -179,11 +178,9 @@ export const modifyCode = async (apiKey: string, model: GeminiModel, fullHtml: s
     `;
     
     try {
-        const response = await ai.models.generateContent({
-            model,
-            contents: fullPrompt
-        });
-        return response.text;
+        const result = await generativeModel.generateContent(fullPrompt);
+        const response = await result.response;
+        return response.text();
     } catch (error) {
         console.error("Error modifying code:", error);
         return fullHtml; // Return original html on error
@@ -191,7 +188,8 @@ export const modifyCode = async (apiKey: string, model: GeminiModel, fullHtml: s
 };
 
 export const cleanCodeForSave = async (apiKey: string, model: GeminiModel, fullHtml: string): Promise<string> => {
-     const ai = new GoogleGenAI({ apiKey });
+     const genAI = new GoogleGenAI(apiKey);
+     const generativeModel = genAI.getGenerativeModel({ model: model });
      const fullPrompt = `
     Eres un experto en limpieza de código. Toma el siguiente código HTML y elimina todo lo relacionado con la funcionalidad de selección de elementos para dejar una versión final y limpia.
 
@@ -212,11 +210,9 @@ export const cleanCodeForSave = async (apiKey: string, model: GeminiModel, fullH
     `;
     
     try {
-        const response = await ai.models.generateContent({
-            model,
-            contents: fullPrompt
-        });
-        return response.text;
+        const result = await generativeModel.generateContent(fullPrompt);
+        const response = await result.response;
+        return response.text();
     } catch (error) {
         console.error("Error cleaning code:", error);
         return "<html><body><h1>Error al limpiar el código.</h1></body></html>";
