@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Im&aacute;genes Seleccionadas</title>
+    <style>
+        :root {
+            --primary-text-color: #333;
+            --accent-color: #E2725B; /* From gemini-selectable border hover */
+            --light-bg: #f8f8f8;
+            --dark-clay: #A1523E; /* From gemini-selectable border active */
+            --container-bg: #ffffff;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--light-bg);
+            color: var(--primary-text-color);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .gallery-container {
+            background-color: var(--container-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px; /* Spacing between images */
+            margin-top: 0; /* Removed margin-top as h1/p are gone */
+        }
+
+        .gallery-item {
+            width: 100px; /* Fixed width for the image */
+            height: 100px; /* Fixed height for the image */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px var(--shadow-light);
+            position: relative;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out; /* Updated transition for border-color */
+            cursor: pointer;
+            border: 2px solid transparent; /* To prevent jump on hover */
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            /* Combined box-shadows from original .gallery-item:hover and .gemini-selectable:hover */
+            box-shadow: 0 6px 15px var(--shadow-medium), 0 0 10px rgba(226, 114, 91, 0.5);
+            border-color: var(--accent-color); /* Added border-color from .gemini-selectable:hover */
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image covers the area without distortion */
+            display: block;
+            transition: filter 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            filter: brightness(0.9);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .gallery-container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .gallery-container {
+                padding: 15px;
+                border-radius: 8px;
+            }
+            .gallery-grid {
+                gap: 10px;
+            }
+            .gallery-item {
+                width: 90px;
+                height: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery-container">
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="resources/1200px-Iberian_female_head_Cerro_Santos_(M.A.N._7674)_01.jpg" alt="Cabeza femenina ib&eacute;rica">
+            </div>
+            <div class="gallery-item">
+                <img src="resources/aad03db249b552a85c3d05e7b017ec42.jpg" alt="Figura antigua">
+            </div>
+            <div class="gallery-item">
+                <img src="resources/dios-celta-cernunnos.jpeg" alt="Dios celta Cernunnos">
+            </div>
+            <div class="gallery-item">
+                <img src="resources/kkatnMSyhQXNFGitpqoqjc.jpg" alt="Escultura cl&aacute;sica">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -8,9 +8,12 @@ use GuzzleHttp\Exception\RequestException;
 class ImageOptimizer {
     const API_ENDPOINT = 'http://api.resmush.it/';
 
-    public static function optimize($sourceImagePath, $outputDir) {
+    public static function optimize($sourceImagePath, $outputDir, $quality = 92) {
         if (!file_exists($sourceImagePath)) {
-            return false;
+            return [
+                'success' => false,
+                'error' => 'Source file not found.'
+            ];
         }
 
         $client = new Client();
@@ -21,6 +24,10 @@ class ImageOptimizer {
                     [
                         'name'     => 'files',
                         'contents' => fopen($sourceImagePath, 'r')
+                    ],
+                    [
+                        'name'     => 'qlty',
+                        'contents' => $quality
                     ]
                 ]
             ]);
@@ -29,28 +36,42 @@ class ImageOptimizer {
                 $result = json_decode($response->getBody()->getContents());
 
                 if (isset($result->error)) {
-                    // API returned an error
-                    return false;
+                    return [
+                        'success' => false,
+                        'error' => 'API error: ' . $result->error_long
+                    ];
                 }
 
-                // Download the optimized image
                 $optimizedImageContents = file_get_contents($result->dest);
                 if ($optimizedImageContents === false) {
-                    return false;
+                    return [
+                        'success' => false,
+                        'error' => 'Failed to download optimized image from ' . $result->dest
+                    ];
                 }
 
-                // Save the optimized image
                 $outputFileName = basename($sourceImagePath);
                 $outputPath = $outputDir . '/' . $outputFileName;
                 file_put_contents($outputPath, $optimizedImageContents);
 
-                return $outputPath;
+                return [
+                    'success' => true,
+                    'original_size' => $result->src_size,
+                    'optimized_size' => $result->dest_size,
+                    'percent_saved' => $result->percent,
+                    'path' => $outputPath
+                ];
             }
         } catch (RequestException $e) {
-            // Guzzle/HTTP error
-            return false;
+            return [
+                'success' => false,
+                'error' => 'HTTP request failed: ' . $e->getMessage()
+            ];
         }
 
-        return false;
+        return [
+            'success' => false,
+            'error' => 'Unknown error occurred.'
+        ];
     }
 }

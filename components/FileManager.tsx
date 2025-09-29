@@ -3,9 +3,10 @@ import { FileItem } from '../types';
 
 interface FileManagerProps {
     onSelectionChange: (selectedFiles: FileItem[]) => void;
+    fileManagerKey?: number;
 }
 
-const FileManager: React.FC<FileManagerProps> = ({ onSelectionChange }) => {
+const FileManager: React.FC<FileManagerProps> = ({ onSelectionChange, fileManagerKey }) => {
     const [activeTab, setActiveTab] = useState<'resources' | 'creations'>('resources');
     const [resources, setResources] = useState<FileItem[]>([]);
     const [creations, setCreations] = useState<FileItem[]>([]);
@@ -22,7 +23,11 @@ const FileManager: React.FC<FileManagerProps> = ({ onSelectionChange }) => {
             const newCreations = (data.creations || []).map((f: any) => ({ ...f, type: 'creation' }));
             setResources(newResources);
             setCreations(newCreations);
-            setSelectedFiles(prevSelected => [...new Set([...prevSelected, ...newResources.map(f => f.path)])]);
+            // Reset selection, keeping only items that still exist
+            setSelectedFiles(prevSelected => {
+                const allNewPaths = [...newResources.map(f => f.path), ...newCreations.map(f => f.path)];
+                return prevSelected.filter(p => allNewPaths.includes(p));
+            });
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred.';
             setError(errorMessage);
@@ -32,7 +37,7 @@ const FileManager: React.FC<FileManagerProps> = ({ onSelectionChange }) => {
 
     useEffect(() => {
         fetchFiles();
-    }, [fetchFiles]);
+    }, [fetchFiles, fileManagerKey]);
 
     // Notify parent component when selection changes
     const handleCheckboxChange = (file: FileItem) => {

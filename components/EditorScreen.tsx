@@ -17,12 +17,13 @@ interface EditorScreenProps {
   onDeselectAll: () => void;
   onSave: (filename: string) => Promise<void>;
   isChatLoading: boolean;
-  isSaving: boolean;
+  saveStep: 'idle' | 'cleaning' | 'optimizing';
   currentModel: GeminiModel;
   onModelChange: (model: GeminiModel) => void;
   onFileSelectionChange: (files: FileItem[]) => void;
   docCount: number;
   imgCount: number;
+  fileManagerKey: number;
 }
 
 const EditorScreen: React.FC<EditorScreenProps> = ({
@@ -33,12 +34,13 @@ const EditorScreen: React.FC<EditorScreenProps> = ({
   onDeselectAll,
   onSave,
   isChatLoading,
-  isSaving,
+  saveStep,
   currentModel,
   onModelChange,
   onFileSelectionChange,
   docCount,
   imgCount,
+  fileManagerKey,
 }) => {
   return (
     <div className="relative h-screen w-screen grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 bg-stone-light">
@@ -46,11 +48,11 @@ const EditorScreen: React.FC<EditorScreenProps> = ({
         <div className="flex-grow">
             <IframePreview htmlContent={htmlContent} onDeselectAll={onDeselectAll} />
         </div>
-        <SavePanel onSave={onSave} isLoading={isSaving} />
+        <SavePanel onSave={onSave} isLoading={saveStep !== 'idle'} />
       </div>
       <div className="col-span-1 flex flex-col h-full bg-white shadow-lg">
         <div className="p-4 border-b">
-            <FileManager onSelectionChange={onFileSelectionChange} />
+            <FileManager onSelectionChange={onFileSelectionChange} key={fileManagerKey} />
         </div>
         <ModelSelector currentModel={currentModel} onModelChange={onModelChange} />
         <div className="relative flex-grow">
@@ -63,12 +65,14 @@ const EditorScreen: React.FC<EditorScreenProps> = ({
             <ChatInputAddons docCount={docCount} imgCount={imgCount} />
         </div>
       </div>
-       {(isChatLoading || isSaving) && (
+       {(isChatLoading || saveStep !== 'idle') && (
         <div className="absolute inset-0 bg-stone-dark bg-opacity-40 flex justify-center items-center z-50 backdrop-blur-sm">
           <div className="bg-stone-light p-6 rounded-lg shadow-2xl flex items-center gap-4 border-2 border-clay-dark">
             <LoadingSpinner />
             <span className="text-lg font-semibold text-clay-dark">
-              {isSaving ? 'Limpiando y preparando el código...' : 'La IA está trabajando...'}
+              {isChatLoading && 'La IA está trabajando...'}
+              {saveStep === 'cleaning' && 'Limpiando código...'}
+              {saveStep === 'optimizing' && 'Optimizando imágenes y guardando...'}
             </span>
           </div>
         </div>

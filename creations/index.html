@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Galer&iacute;a de Im&aacute;genes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0f2f7 0%, #c2e0e9 50%, #b2d4e0 100%); /* Degradado de fondo sutil */
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            background-color: #ffffff;
+            /* Original padding: 30px; border: 2px solid transparent; from .gemini-selectable */
+            /* Compensate padding to maintain content size, add border to maintain box model */
+            padding: 28px;
+            border: 2px solid transparent;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.8s ease-out;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 2.8em;
+            animation: slideIn 1s ease-out forwards;
+            opacity: 0;
+            /* Add transparent border to maintain original content sizing */
+            border: 2px solid transparent;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-60px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .description {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 40px;
+            animation: textFadeIn 1.2s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.3s;
+            /* Add transparent border to maintain original content sizing */
+            border: 2px solid transparent;
+        }
+
+        @keyframes textFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            /* Original padding: 10px; border: 2px solid transparent; from .gemini-selectable */
+            /* Compensate padding to maintain content size, add border to maintain box model */
+            padding: 8px;
+            border: 2px solid transparent;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            width: 100px; /* Tama&ntilde;o fijo de la imagen */
+            height: 100px; /* Tama&ntilde;o fijo de la imagen */
+            overflow: hidden; /* Asegura que la imagen se ajuste dentro del contenedor */
+            border-radius: 18px; /* Esquinas redondeadas para el contenedor */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            /* Original transition: transform 0.3s, box-shadow 0.3s. .gemini-selectable added transition: all 0.2s for border. */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.2s ease-in-out;
+            position: relative; /* Keep this as it was part of original .gallery-item styling */
+            cursor: pointer;
+            background-color: #f8f8f8; /* Un peque&ntilde;o fondo para el item */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Add transparent border to maintain original content sizing and allow hover border-color change */
+            border: 2px solid transparent;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px) scale(1.05);
+            /* Original gallery-item:hover box-shadow was 0 8px 20px rgba(0, 0, 0, 0.2); */
+            /* The .gemini-selectable:hover box-shadow (0 0 10px rgba(226, 114, 91, 0.5)) would have overridden it. */
+            /* We retain the visual effect of the gemini-selectable hover. */
+            box-shadow: 0 0 10px rgba(226, 114, 91, 0.5);
+            /* Add border-color from .gemini-selectable:hover */
+            border-color: #E2725B;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Asegura que la imagen cubra el &aacute;rea sin distorsionarse */
+            display: block; /* Elimina espacio extra debajo de la imagen */
+            border-radius: 15px; /* Ligeramente m&aacute;s peque&ntilde;o que el contenedor para un borde sutil */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            h1 {
+                font-size: 2.2em;
+            }
+            .description {
+                font-size: 1em;
+            }
+            .gallery-grid {
+                gap: 15px;
+            }
+            .gallery-item {
+                width: 90px;
+                height: 90px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            .gallery-grid {
+                gap: 10px;
+            }
+            .gallery-item {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mini Galer&iacute;a de Im&aacute;genes</h1>
+        <p class="description">Explora nuestra colecci&oacute;n de im&aacute;genes en miniatura. Todas las fotos tienen las esquinas redondeadas y un tama&ntilde;o de 100x100 p&iacute;xeles.</p>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="images/image_2b8fd93e-9f86-4739-a26d-2843171cbc7a.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_372ddfbf-52cd-4f99-9e14-24a0b6c37cbe.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_46679bb9-cfd6-4776-be0e-8b1fd01ca730.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_497a1656-b1ab-4e70-94c2-7439ba3e212f.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_784467e1-1783-403e-b106-0b556a4ff4f8.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_871d1dd0-110c-48bf-8acd-e4256da5d1e6.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_eff77b3b-78f1-457c-bd92-1f1109eec9fd.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_2b8fd93e-9f86-4739-a26d-2843171cbc7a.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_372ddfbf-52cd-4f99-9e14-24a0b6c37cbe.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_46679bb9-cfd6-4776-be0e-8b1fd01ca730.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_497a1656-b1ab-4e70-94c2-7439ba3e212f.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_784467e1-1783-403e-b106-0b556a4ff4f8.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_871d1dd0-110c-48bf-8acd-e4256da5d1e6.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_eff77b3b-78f1-457c-bd92-1f1109eec9fd.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_2b8fd93e-9f86-4739-a26d-2843171cbc7a.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+            <div class="gallery-item">
+                <img src="images/image_372ddfbf-52cd-4f99-9e14-24a0b6c37cbe.jpeg" alt="Imagen de la galer&iacute;a" width="100" height="100">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

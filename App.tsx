@@ -11,12 +11,13 @@ const App: React.FC = () => {
   const [htmlContent, setHtmlContent] = useState<string>('');
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [saveStep, setSaveStep] = useState<'idle' | 'cleaning' | 'optimizing'>('idle');
   const [model, setModel] = useState<GeminiModel>(GeminiModel.FLASH);
   const [selectedFiles, setSelectedFiles] = useState<FileItem[]>([]);
   const [aiContext, setAiContext] = useState<string>("");
   const [docCount, setDocCount] = useState<number>(0);
   const [imgCount, setImgCount] = useState<number>(0);
+  const [fileManagerKey, setFileManagerKey] = useState<number>(0);
 
   useEffect(() => {
     const savedApiKey = localStorage.getItem('gemini_api_key');
@@ -74,7 +75,7 @@ const App: React.FC = () => {
                     return `Content from ${item.name}:\n${item.content}`;
                 }
                 if (item.type === 'image') {
-                    return `Metadata for ${item.name}: ${item.metadata.width}x${item.metadata.height}, ${item.metadata.mime}`;
+                    return `Image available at path "${item.path}". Metadata for ${item.name}: ${item.metadata.width}x${item.metadata.height}, ${item.metadata.mime}`;
                 }
                 return '';
             }).join('\n\n');
@@ -173,9 +174,8 @@ const App: React.FC = () => {
         }
     }
 
-    setIsSaving(true);
+    setSaveStep('cleaning');
 
-    // Find which selected files are actually used in the HTML
     const usedImages = selectedFiles.filter(file => 
         htmlContent.includes(file.path) || htmlContent.includes(file.name)
     );
@@ -190,12 +190,17 @@ const App: React.FC = () => {
     }
 
     if (cleanHtml.includes('Error')) {
-       setChatHistory(prev => [...prev, { author: MessageAuthor.SYSTEM, content: 'Hubo un error al limpiar el código para guardar.' }]);
-       setIsSaving(false);
+       const errorMsg = 'Hubo un error al limpiar el código para guardar.';
+       console.error(errorMsg, cleanHtml);
+       setChatHistory(prev => [...prev, { author: MessageAuthor.SYSTEM, content: errorMsg }]);
+       setSaveStep('idle');
        return;
     }
 
+    setSaveStep('optimizing');
+
     try {
+      console.log(`Iniciando guardado para ${filename}...`);
       const response = await fetch('/api/save.php', {
         method: 'POST',
         headers: {
@@ -204,12 +209,11 @@ const App: React.FC = () => {
         body: JSON.stringify({ 
           htmlContent: cleanHtml, 
           filename: filename,
-          usedImages: usedImages.map(f => f.path) // Send paths of used images
+          usedImages: usedImages.map(f => f.path)
         }),
       });
 
       if (!response.ok) {
-        // If response is not OK, get the error message from the body as text
         const errorText = await response.text();
         throw new Error(errorText || `Error del servidor: ${response.status}`);
       }
@@ -217,21 +221,24 @@ const App: React.FC = () => {
       const result = await response.json();
 
       if (result.status === 'success') {
+        console.log('Guardado con éxito:', result);
         setChatHistory(prev => [...prev, { author: MessageAuthor.SYSTEM, content: result.message }]);
+        setFileManagerKey(prevKey => prevKey + 1); // Trigger file manager refresh
       } else {
         throw new Error(result.message || 'Error desconocido del servidor.');
       }
     } catch (err) {
       if (err instanceof Error) {
-        console.error('Error saving file:', err);
+        console.error('Error al guardar el archivo:', err.message);
         alert(`Error al guardar: ${err.message}`);
         setChatHistory(prev => [...prev, { author: MessageAuthor.SYSTEM, content: `Error al guardar: ${err.message}` }]);
       } else {
+        console.error('Error inesperado al guardar:', err);
         alert('Ocurrió un error inesperado al guardar el archivo.');
         setChatHistory(prev => [...prev, { author: MessageAuthor.SYSTEM, content: 'Ocurrió un error inesperado al guardar el archivo.' }]);
       }
     }
-    setIsSaving(false);
+    setSaveStep('idle');
   };
 
   if (!apiKey) {
@@ -239,7 +246,7 @@ const App: React.FC = () => {
   }
 
   if (view === AppView.HOME) {
-    return <HomeScreen onCreateFromPrompt={handleCreateFromPrompt} onCreateFromUrl={handleCreateFromUrl} isLoading={isLoading} onFileSelectionChange={handleFileSelectionChange} />;
+    return <HomeScreen onCreateFromPrompt={handleCreateFromPrompt} onCreateFromUrl={handleCreateFromUrl} isLoading={isLoading} onFileSelectionChange={handleFileSelectionChange} currentModel={model} onModelChange={setModel} fileManagerKey={fileManagerKey} />;
   }
 
   return (
@@ -251,12 +258,13 @@ const App: React.FC = () => {
       onDeselectAll={handleDeselectAll}
       onSave={handleSave}
       isChatLoading={isLoading}
-      isSaving={isSaving}
+      saveStep={saveStep}
       currentModel={model}
       onModelChange={setModel}
       onFileSelectionChange={handleFileSelectionChange}
       docCount={docCount}
       imgCount={imgCount}
+      fileManagerKey={fileManagerKey}
     />
   );
 };

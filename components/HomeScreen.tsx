@@ -2,16 +2,20 @@
 import React, { useState } from 'react';
 import LoadingSpinner from './LoadingSpinner';
 import FileManager from './FileManager';
-import { FileItem } from '../types';
+import { FileItem, GeminiModel } from '../types';
+import ModelSelector from './ModelSelector';
 
 interface HomeScreenProps {
   onCreateFromPrompt: (prompt: string) => void;
   onCreateFromUrl: (url: string) => void;
   isLoading: boolean;
   onFileSelectionChange: (files: FileItem[]) => void;
+  currentModel: GeminiModel;
+  onModelChange: (model: GeminiModel) => void;
+  fileManagerKey: number;
 }
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ onCreateFromPrompt, onCreateFromUrl, isLoading, onFileSelectionChange }) => {
+const HomeScreen: React.FC<HomeScreenProps> = ({ onCreateFromPrompt, onCreateFromUrl, isLoading, onFileSelectionChange, currentModel, onModelChange, fileManagerKey }) => {
   const [prompt, setPrompt] = useState('');
   const [url, setUrl] = useState('');
 
@@ -42,40 +46,45 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onCreateFromPrompt, onCreateFro
                 <p className="mt-4 text-lg text-clay-dark font-semibold">Generando tu web...</p>
             </div>
         ) : (
-            <div className="w-full max-w-4xl grid md:grid-cols-2 gap-8">
-                <div className="bg-white p-8 rounded-lg shadow-2xl border-2 border-clay-dark">
-                    <h2 className="text-2xl font-bold mb-4 text-clay-dark">Crear desde una descripción</h2>
-                    <form onSubmit={handlePromptSubmit}>
-                        <textarea
-                            className="w-full p-3 border-2 border-clay rounded-md focus:ring-2 focus:ring-accent focus:border-accent resize-none transition-shadow"
-                            rows={4}
-                            placeholder="Ej: Una web para una cafetería de estilo rústico, con tonos tierra, un menú y un mapa..."
-                            value={prompt}
-                            onChange={(e) => setPrompt(e.target.value)}
-                        />
-                        <button type="submit" className="mt-4 w-full bg-clay hover:bg-clay-dark text-white font-bold py-3 px-4 rounded-md transition-colors duration-300">
-                            Crear
-                        </button>
-                    </form>
+            <div className="w-full max-w-4xl">
+                <div className="mb-8 max-w-sm mx-auto">
+                    <ModelSelector currentModel={currentModel} onModelChange={onModelChange} />
                 </div>
+                <div className="grid md:grid-cols-2 gap-8">
+                    <div className="bg-white p-8 rounded-lg shadow-2xl border-2 border-clay-dark">
+                        <h2 className="text-2xl font-bold mb-4 text-clay-dark">Crear desde una descripción</h2>
+                        <form onSubmit={handlePromptSubmit}>
+                            <textarea
+                                className="w-full p-3 border-2 border-clay rounded-md focus:ring-2 focus:ring-accent focus:border-accent resize-none transition-shadow"
+                                rows={4}
+                                placeholder="Ej: Una web para una cafetería de estilo rústico, con tonos tierra, un menú y un mapa..."
+                                value={prompt}
+                                onChange={(e) => setPrompt(e.target.value)}
+                            />
+                            <button type="submit" className="mt-4 w-full bg-clay hover:bg-clay-dark text-white font-bold py-3 px-4 rounded-md transition-colors duration-300">
+                                Crear
+                            </button>
+                        </form>
+                    </div>
 
-                <div className="bg-white p-8 rounded-lg shadow-2xl border-2 border-clay-dark">
-                    <h2 className="text-2xl font-bold mb-4 text-clay-dark">Importar desde una URL</h2>
-                    <form onSubmit={handleUrlSubmit}>
-                        <input
-                            type="text"
-                            className="w-full p-3 border-2 border-clay rounded-md focus:ring-2 focus:ring-accent focus:border-accent transition-shadow"
-                            placeholder="https://ejemplo.com"
-                            value={url}
-                            onChange={(e) => setUrl(e.target.value)}
-                        />
-                        <button type="submit" className="mt-4 w-full bg-rust-light hover:bg-rust text-white font-bold py-3 px-4 rounded-md transition-colors duration-300">
-                            Importar y Editar
-                        </button>
-                    </form>
-                </div>
-                <div className="md:col-span-2">
-                    <FileManager onSelectionChange={onFileSelectionChange} />
+                    <div className="bg-white p-8 rounded-lg shadow-2xl border-2 border-clay-dark">
+                        <h2 className="text-2xl font-bold mb-4 text-clay-dark">Importar desde una URL</h2>
+                        <form onSubmit={handleUrlSubmit}>
+                            <input
+                                type="text"
+                                className="w-full p-3 border-2 border-clay rounded-md focus:ring-2 focus:ring-accent focus:border-accent transition-shadow"
+                                placeholder="https://ejemplo.com"
+                                value={url}
+                                onChange={(e) => setUrl(e.target.value)}
+                            />
+                            <button type="submit" className="mt-4 w-full bg-rust-light hover:bg-rust text-white font-bold py-3 px-4 rounded-md transition-colors duration-300">
+                                Importar y Editar
+                            </button>
+                        </form>
+                    </div>
+                    <div className="md:col-span-2">
+                        <FileManager onSelectionChange={onFileSelectionChange} key={fileManagerKey} />
+                    </div>
                 </div>
             </div>
         )}

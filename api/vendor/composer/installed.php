@@ -3,13 +3,22 @@
         'name' => 'urdi-art/ai-web-creator-api',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '0ca120c94a28b43e39a485ed87cee30b18dda94d',
+        'reference' => '6a6d4610cd291bf531d398800127feef70d07293',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'gumlet/php-image-resize' => array(
+            'pretty_version' => '2.1.2',
+            'version' => '2.1.2.0',
+            'reference' => '4ab5e080f9c9d432c1a8cb6e158d9fd99950a6d1',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../gumlet/php-image-resize',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'guzzlehttp/guzzle' => array(
             'pretty_version' => '7.10.0',
             'version' => '7.10.0.0',
@@ -103,7 +112,7 @@
         'urdi-art/ai-web-creator-api' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0ca120c94a28b43e39a485ed87cee30b18dda94d',
+            'reference' => '6a6d4610cd291bf531d398800127feef70d07293',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

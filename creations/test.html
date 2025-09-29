@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wicca Celtíbera - El Eco de Nuestros Ancestros</title>
+    <style>
+        /* Estilos Generales */
+        :root {
+            --bg-parchment: #F5EFE6;
+            --text-charcoal: #3C3633;
+            --clay-dark: #A1523E;
+            --stone-grey: #747264;
+            --accent-ochre: #E2725B;
+            --font-main: 'Georgia', 'Times New Roman', serif;
+            --font-headings: 'Palatino', 'Book Antiqua', serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-parchment);
+            color: var(--text-charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-headings);
+            color: var(--clay-dark);
+            font-weight: 700;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            max-width: 70ch;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* Animaciones sutiles */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header y Navegación */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(245, 239, 230, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .main-header.scrolled {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom-color: rgba(161, 82, 62, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-charcoal);
+            font-family: var(--font-headings);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--clay-dark);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover svg {
+            transform: rotate(180deg);
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--text-charcoal);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-ochre);
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover {
+            color: var(--clay-dark);
+        }
+        
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--text-charcoal);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+            background: url("./images/Generated Image September 22, 2025 - 9_26PM.png") no-repeat center center/cover;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: var(--bg-parchment);
+            max-width: 800px;
+        }
+        
+        .hero-content h1 {
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+        }
+        
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+        }
+
+        /* Secciones Generales */
+        .content-section {
+            padding: 5rem 0;
+        }
+        
+        .content-section:nth-of-type(odd) {
+            background-color: rgba(116, 114, 100, 0.05);
+        }
+
+        /* Tradición Section */
+        .tradition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .tradition-text p {
+            text-align: justify;
+        }
+        
+        .tradition-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .tradition-images figure {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tradition-images figure:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(60, 54, 51, 0.2);
+        }
+        
+        .tradition-images img {
+            object-fit: cover;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(60, 54, 51, 0.1);
+        }
+        
+        .dama-elche {
+            aspect-ratio: 3 / 4;
+        }
+        
+        .vaso-iberico {
+            aspect-ratio: 1 / 1;
+        }
+
+        /* Leyenda Section */
+        #leyenda {
+            background: url("./images/d8cda2ee1b669df06e943.jpg") no-repeat center center/cover;
+            position: relative;
+            color: white;
+        }
+
+        #leyenda::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(60, 54, 51, 0.8);
+            z-index: 1;
+        }
+        
+        #leyenda .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        #leyenda h2 {
+            color: var(--bg-parchment);
+        }
+
+        .leyenda-content {
+            background: rgba(0,0,0,0.3);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(245, 239, 230, 0.2);
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .leyenda-content .chorus {
+            font-style: italic;
+            color: #ccc;
+            margin: 1.5rem 0;
+        }
+        
+        .leyenda-content .final-name {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            color: var(--accent-ochre);
+            letter-spacing: 2px;
+        }
+
+        /* Inspiración Section */
+        .inspiracion-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .inspiracion-content img {
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(60, 54, 51, 0.1);
+        }
+        
+        .inspiracion-content p {
+            max-width: 60ch;
+            font-style: italic;
+            color: var(--stone-grey);
+        }
+        
+        /* Footer */
+        .main-footer {
+            background-color: var(--text-charcoal);
+            color: var(--bg-parchment);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .social-links a {
+            margin: 0 0.75rem;
+        }
+        
+        .social-links svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--bg-parchment);
+            transition: fill 0.3s ease, transform 0.3s ease;
+        }
+        
+        .social-links a:hover svg {
+            fill: var(--accent-ochre);
+            transform: scale(1.1);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--stone-grey);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+                z-index: 1001;
+            }
+
+            .main-nav {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--bg-parchment);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+
+            .main-nav.active {
+                transform: translateX(0);
+            }
+
+            .main-nav a {
+                font-size: 1.2rem;
+            }
+
+            .tradition-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="nav-container container">
+            <a href="#" class="logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50,50 m0,-48 a48,48 0 1,0 0,96 a48,48 0 1,0 0,-96 M50,50 m0,-40 a40,40 0 1,0 0,80 a40,40 0 1,0 0,-80 M50,50 m0,-32 a32,32 0 1,0 0,64 a32,32 0 1,0 0,-64 M50,50 m0,-24 a24,24 0 1,0 0,48 a24,24 0 1,0 0,-48 M50,50 m0,-16 a16,16 0 1,0 0,32 a16,16 0 1,0 0,-32 M50,50 m0,-8 a8,8 0 1,0 0,16 a8,8 0 1,0 0,-16"/>
+                </svg>
+                <span>Wicca Celtíbera</span>
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <a href="#blog">Blog</a>
+                <a href="#prensa">Prensa</a>
+                <a href="#sobre-nosotros">Sobre nosotros</a>
+                <a href="#tradicion">Tradición</a>
+                <a href="#multimedia">Multimedia</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+            <button class="hamburger" id="hamburger-menu" aria-label="Abrir menú">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="hero" id="home">
+            <div class="hero-content fade-in">
+                <h1>El Eco de Nuestros Ancestros</h1>
+                <p>Redescubriendo la senda espiritual de las tierras y pueblos pre-romanos de la Península Ibérica.</p>
+            </div>
+        </section>
+
+        <section id="tradicion" class="content-section">
+            <div class="container">
+                <h2 class="fade-in">Nuestra Tradición</h2>
+                <div class="tradition-grid">
+                    <div class="tradition-text fade-in">
+                        <p>La Wicca Celtíbera es un camino espiritual moderno que hunde sus raíces en la rica herencia cultural, mitológica y artística de las poblaciones que habitaron la Península Ibérica antes de la llegada de Roma. Honramos la tierra, sus ciclos y los antiguos dioses y espíritus que aquí moraron.</p>
+                        <p>Nuestra práctica se inspira en el arte rupestre, los símbolos hallados en cerámicas y metales, y las leyendas que han sobrevivido al paso de los milenios. Buscamos reconstruir y adaptar una cosmovisión conectada con este paisaje único, fusionando la sabiduría ancestral con una perspectiva contemporánea.</p>
+                    </div>
+                    <div class="tradition-images fade-in">
+                         <figure>
+                            <img src="./images/d6ce3cc75744fac651ccdbe780814daf.jpg" alt="Dama de Elche, escultura íbera" class="dama-elche">
+                         </figure>
+                         <figure>
+                             <img src="./images/aad03db249b552a85c3d05e7b017ec42.jpg" alt="Vaso cerámico íbero con decoración simbólica" class="vaso-iberico">
+                         </figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="leyenda" class="content-section">
+            <div class="container">
+                <h2 class="fade-in">La Leyenda de la Luz Nocturna</h2>
+                <div class="leyenda-content fade-in">
+Cuenta una antigua leyenda, que una noche muy especial,
+un joven que salió de pesca, se quedó dormido en el mar.
+Las olas mecen su barca, y le empujan mar adentro,
+un rugido le despierta, perdón, quise decir el viento.
+
+Asustado decide volver
+Pero no sabe hacia dónde remar
+su esperanza se desploma
+caprichoso patrón es el mar
+(igual que da vida, la toma)
+
+<div class="chorus">Nox antiqua, lux divina
+Per tenebras dux et via
+Miraculum ex aetate
+Adhuc lucet luce dia</div>
+
+De repente una mágica luz
+ve brotar bajo sus remos
+y envuelta en un fuego azul
+aparece una dama de ensueño
+
+Junto a ella surge de las aguas
+un león del color de la luna
+En su mano una antorcha de plata
+que ilumina y disipa la bruma
+
+Es la luminosa diosa del mar
+luz que nos guía en la oscuridad
+su león simboliza poder
+su antorcha es de luz celestial
+
+Con una mirada el corazón le roba
+Con una sonrisa el cansancio se va
+Con gracia levanta su mágica antorcha
+Con olas de luz le ilumina la costa
+
+<div class="chorus">Nox antiqua, lux divina
+Per tenebras dux et via
+Miraculum ex aetate
+Adhuc lucet luce dia</div>
+
+Agridulce es la despedida
+pero es hora de marchar
+da las gracias por su vida
+y entre lágrimas a remar
+
+Regresando a tierra firme
+De repente sale el sol
+no se puede ver ni rastro
+del milagro que le salvó
+
+Los testigos que llegaron
+atraídos por el resplandor
+Harán eco del relato
+de nuestro joven pescador
+
+Es una historia que resuena
+la diosa despierta devoción
+Allí en la cueva del tesoro
+hacen ofrendas en su honor
+
+<div class="chorus">Nox antiqua, lux divina
+Per tenebras dux et via
+Miraculum ex aetate
+Adhuc lucet luce dia</div>
+
+Pero aunque pasen las eras
+cada verano vuelve a pasar
+En nuestra playa de leyenda
+las olas puedes ver brillar
+
+Cuando escuches las leyendas
+Y los mitos de la antigüedad
+Escucha con la mente abierta
+¿Quién sabe? Podrían ser verdad
+
+Tuve muchos nombres (perdidos en el tiempo)
+Soy la luz que ilumina en la noche (reflejo del firmamento)
+El rumor de las olas lleva mi voz (el mar es mi reino)
+Me llamarás...
+<div class="final-name">NOCTILUCA</div>
+
+<div class="chorus">Nox antiqua, lux divina
+Per tenebras dux et via
+Miraculum ex aetate
+Adhuc lucet luce dia
+(Noctiluca)</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="inspiracion" class="content-section">
+            <div class="container">
+                <h2 class="fade-in">Inspiración Ancestral</h2>
+                <div class="inspiracion-content fade-in">
+                    <img src="./images/Aboriginal_Art_Australia-870x521.jpg" alt="Arte rupestre ancestral">
+                    <p>Nos inspiramos en las expresiones artísticas ancestrales de todo el mundo, como este arte aborigen australiano, que demuestran la conexión universal del ser humano con lo sagrado, la tierra y el cosmos a través de símbolos y relatos visuales.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer" id="contacto">
+        <div class="footer-content container">
+            <div class="footer-info">
+                <h3>Confesión Religiosa Wicca Celtíbera</h3>
+                <p>Explorando la espiritualidad de nuestros ancestros.</p>
+                <p>contacto@wiccaceltibera.org</p>
+            </div>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06c0 5.52 4.5 10.02 10 10.02c5.5 0 10-4.5 10-10.02C22 6.53 17.5 2.04 12 2.04zM13.6 19.14v-7.1h2.4l.36-2.78h-2.76v-1.77c0-.8.22-1.35 1.37-1.35h1.47V3.53c-.25-.03-1.1-.1-2.1-.1c-2.08 0-3.5 1.27-3.5 3.6v2.06H9.2v2.78h2.3v7.1h2.1z"/></svg>
+                </a>
+                <a href="#" aria-label="Instagram">
+                   <svg viewBox="0 0 24 24"><path d="M12 2c-2.72 0-3.06.01-4.12.06c-1.06.05-1.79.22-2.42.47c-.65.25-1.17.59-1.69 1.11c-.52.52-.86 1.04-1.11 1.69c-.25.63-.42 1.36-.47 2.42C2.01 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.42c.25.65.59 1.17 1.11 1.69c.52.52 1.04.86 1.69 1.11c.63.25 1.36.42 2.42.47c1.06.05 1.4.06 4.12.06s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.42-.47c.65-.25 1.17-.59 1.69-1.11c.52-.52.86-1.04-1.11-1.69c.25-.63.42-1.36.47-2.42c.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.42c-.25-.65-.59-1.17-1.11-1.69c-.52-.52-1.04-.86-1.69-1.11c-.63-.25-1.36-.42-2.42-.47C15.06 2.01 14.72 2 12 2zm0 1.8c2.67 0 2.99.01 4.05.06c.98.04 1.5.21 1.86.35c.44.17.75.39 1.09.73c.34.34.56.65.73 1.09c.14.36.31.88.35 1.86c.05 1.06.06 1.38.06 4.05s-.01 2.99-.06 4.05c-.04.98-.21 1.5-.35 1.86c-.17.44-.39.75-.73 1.09c-.34.34-.65.56-1.09.73c-.36.14-.88.31-1.86.35c-1.06.05-1.38.06-4.05.06s-2.99-.01-4.05-.06c-.98-.04-1.5-.21-1.86-.35c-.44-.17-.75-.39-1.09-.73c-.34-.34-.56-.65-.73-1.09c-.14-.36-.31-.88-.35-1.86c-.05-1.06-.06-1.38-.06-4.05s.01-2.99.06-4.05c.04-.98.21-1.5.35-1.86c.17-.44.39-.75.73-1.09c.34-.34.65-.56 1.09-.73c.36-.14.88-.31 1.86-.35C9.01 3.81 9.33 3.8 12 3.8zm0 3.35c-2.65 0-4.85 2.2-4.85 4.85s2.2 4.85 4.85 4.85s4.85-2.2 4.85-4.85s-2.2-4.85-4.85-4.85zm0 7.9c-1.68 0-3.05-1.37-3.05-3.05s1.37-3.05 3.05-3.05s3.05 1.37 3.05 3.05s-1.37 3.05-3.05 3.05zm6.2-7.3c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25s1.25.56 1.25 1.25s-.56 1.25-1.25 1.25z"/></svg>
+                </a>
+                <a href="#" aria-label="Youtube">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm-1.5 14.5v-9L16 12l-5.5 4.5z"/></svg>
+                </a>
+            </div>
+            <p class="copyright">&copy; 2024 Wicca Celtíbera. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const hamburger = document.getElementById('hamburger-menu');
+            const nav = document.getElementById('main-nav');
+            hamburger.addEventListener('click', () => {
+                nav.classList.toggle('active');
+            });
+
+            // Close menu when a link is clicked
+            nav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    nav.classList.remove('active');
+                });
+            });
+            
+            // Header scroll effect
+            const header = document.querySelector('.main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Fade-in animation on scroll
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('visible');
+                        appearOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+        });
+    </script>
+</body>
+</html>

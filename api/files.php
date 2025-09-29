@@ -23,8 +23,8 @@ function scanDirectory($dir, $publicPath) {
 }
 
 $response = [
-    'resources' => scanDirectory($resourcesDir, '../resources/'),
-    'creations' => scanDirectory($creationsDir, '../creations/images/')
+    'resources' => scanDirectory($resourcesDir, 'resources/'),
+    'creations' => scanDirectory($creationsDir, 'creations/images/')
 ];
 
 echo json_encode($response);

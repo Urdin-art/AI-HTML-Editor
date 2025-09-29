@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Optimizer Test</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f4; color: #333; padding: 2em; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 2em; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1, h2 { color: #555; }
+        #file-list, #results { border: 1px solid #ddd; padding: 1em; margin-top: 1em; border-radius: 4px; max-height: 300px; overflow-y: auto; }
+        .file-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5em; border-bottom: 1px solid #eee; }
+        label { flex-grow: 1; }
+        button { background-color: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-size: 1em; }
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #ccc; }
+        #controls { display: flex; gap: 1em; align-items: center; margin-top: 1em; }
+        select { padding: 10px; border-radius: 4px; border: 1px solid #ddd; }
+        pre { background: #eee; padding: 1em; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Image Optimizer Test Page</h1>
+        
+        <h2>1. Select Images from 'resources'</h2>
+        <div id="file-list">
+            <p>Loading files...</p>
+        </div>
+
+        <h2>2. Set Quality & Optimize</h2>
+        <div id="controls">
+            <label for="quality-selector">JPEG Quality (1-100):</label>
+            <select id="quality-selector">
+                <option value="92">92 (Default)</option>
+                <option value="85">85 (High)</option>
+                <option value="75">75 (Medium)</option>
+                <option value="50">50 (Low)</option>
+            </select>
+            <button id="optimize-btn">Optimize Selected Images</button>
+        </div>
+
+        <h2>3. Results</h2>
+        <pre id="results"><p>Optimization results will appear here.</p></pre>
+    </div>
+
+    <script>
+        const fileListDiv = document.getElementById('file-list');
+        const qualitySelector = document.getElementById('quality-selector');
+        const optimizeBtn = document.getElementById('optimize-btn');
+        const resultsPre = document.getElementById('results');
+
+        let availableFiles = [];
+
+        async function fetchFiles() {
+            try {
+                const response = await fetch('/api/files.php');
+                const data = await response.json();
+                availableFiles = data.resources || [];
+                renderFiles();
+            } catch (error) {
+                fileListDiv.innerHTML = '<p style="color: red;">Failed to load files. Is the PHP server running?</p>';
+                console.error('Error fetching files:', error);
+            }
+        }
+
+        function renderFiles() {
+            if (availableFiles.length === 0) {
+                fileListDiv.innerHTML = '<p>No files found in /resources folder. Please upload some images first.</p>';
+                return;
+            }
+
+            fileListDiv.innerHTML = '';
+            availableFiles.forEach(file => {
+                const isImage = /\.(jpe?g|png|gif|webp)$/i.test(file.name);
+                if (!isImage) return;
+
+                const div = document.createElement('div');
+                div.className = 'file-item';
+                div.innerHTML = "
+                    <label for=\"file-${file.name}">${file.name}</label>
+                    <input type=\"checkbox\" id=\"file-${file.name}\" value=\"_path_${file.path}\" checked>
+                ";
+                fileListDiv.appendChild(div);
+            });
+        }
+
+        optimizeBtn.addEventListener('click', async () => {
+            const selectedCheckboxes = fileListDiv.querySelectorAll('input[type=checkbox]:checked');
+            const selectedPaths = Array.from(selectedCheckboxes).map(cb => cb.value.replace('_path_',''));
+
+            if (selectedPaths.length === 0) {
+                resultsPre.textContent = 'No images selected to optimize.';
+                return;
+            }
+
+            const quality = parseInt(qualitySelector.value, 10);
+
+            resultsPre.textContent = 'Optimizing... Please wait.';
+            optimizeBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/optimize.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ files: selectedPaths, quality: quality })
+                });
+                const results = await response.json();
+                resultsPre.textContent = JSON.stringify(results, null, 2);
+
+            } catch (error) {
+                resultsPre.textContent = `An error occurred:\n${error.message}`;
+                console.error('Optimization error:', error);
+            } finally {
+                optimizeBtn.disabled = false;
+            }
+        });
+
+        // Initial load
+        fetchFiles();
+    </script>
+
+</body>
+</html>
