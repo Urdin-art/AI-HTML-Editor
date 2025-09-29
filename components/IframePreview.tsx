@@ -1,27 +1,29 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 interface IframePreviewProps {
   htmlContent: string;
+  onDeselectAll: () => void;
 }
 
-const IframePreview: React.FC<IframePreviewProps> = ({ htmlContent }) => {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+const IframePreview = React.forwardRef<HTMLIFrameElement, IframePreviewProps>(({ htmlContent, onDeselectAll }, ref) => {
 
   useEffect(() => {
-    if (iframeRef.current) {
-        iframeRef.current.srcdoc = htmlContent;
+    const iframe = (ref as React.RefObject<HTMLIFrameElement>)?.current;
+    if (iframe) {
+        iframe.srcdoc = htmlContent;
     }
-  }, [htmlContent]);
+  }, [htmlContent, ref]);
 
 
   return (
     <div className="flex flex-col h-full bg-stone-light">
-      <div className="p-2 bg-stone-dark text-stone-light text-sm text-center font-semibold tracking-wider">
-        Vista Previa Interactiva
+      <div className="p-2 bg-stone-dark text-stone-light text-sm text-center font-semibold tracking-wider flex justify-between items-center">
+        <span>Vista Previa Interactiva</span>
+        <button onClick={onDeselectAll} className='text-xs bg-rust-light/50 px-2 py-1 rounded-md hover:bg-rust-light'>Deseleccionar todo</button>
       </div>
       <div className="flex-grow w-full h-full p-4 bg-stone-light">
         <iframe
-          ref={iframeRef}
+          ref={ref}
           srcDoc={htmlContent}
           title="Vista Previa"
           className="w-full h-full border-2 border-clay-dark rounded-lg shadow-inner"
@@ -30,6 +32,6 @@ const IframePreview: React.FC<IframePreviewProps> = ({ htmlContent }) => {
       </div>
     </div>
   );
-};
+});
 
 export default IframePreview;

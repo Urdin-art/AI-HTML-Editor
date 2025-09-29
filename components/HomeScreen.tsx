@@ -1,13 +1,18 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LoadingSpinner from './LoadingSpinner';
 import FileManager from './FileManager';
 import { FileItem, GeminiModel } from '../types';
 import ModelSelector from './ModelSelector';
 
+interface PageFile {
+    name: string;
+    path: string;
+}
+
 interface HomeScreenProps {
   onCreateFromPrompt: (prompt: string) => void;
-  onCreateFromUrl: (url: string) => void;
+  onImportFromCreation: (filePath: string) => void;
   isLoading: boolean;
   onFileSelectionChange: (files: FileItem[]) => void;
   currentModel: GeminiModel;
@@ -15,9 +20,28 @@ interface HomeScreenProps {
   fileManagerKey: number;
 }
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ onCreateFromPrompt, onCreateFromUrl, isLoading, onFileSelectionChange, currentModel, onModelChange, fileManagerKey }) => {
+const HomeScreen: React.FC<HomeScreenProps> = ({ onCreateFromPrompt, onImportFromCreation, isLoading, onFileSelectionChange, currentModel, onModelChange, fileManagerKey }) => {
   const [prompt, setPrompt] = useState('');
-  const [url, setUrl] = useState('');
+  const [pages, setPages] = useState<PageFile[]>([]);
+  const [selectedPage, setSelectedPage] = useState<string>('');
+
+  useEffect(() => {
+    const fetchPages = async () => {
+        try {
+            const response = await fetch('/api/files.php');
+            const data = await response.json();
+            if (data.pages) {
+                setPages(data.pages);
+                if (data.pages.length > 0) {
+                    setSelectedPage(data.pages[0].path);
+                }
+            }
+        } catch (error) {
+            console.error("Failed to fetch pages:", error);
+        }
+    };
+    fetchPages();
+  }, []);
 
   const handlePromptSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,10 +50,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onCreateFromPrompt, onCreateFro
     }
   };
 
-  const handleUrlSubmit = (e: React.FormEvent) => {
+  const handleImportSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (url.trim()) {
-      onCreateFromUrl(url);
+    if (selectedPage) {
+      onImportFromCreation(selectedPage);
     }
   };
 
@@ -68,16 +92,23 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onCreateFromPrompt, onCreateFro
                     </div>
 
                     <div className="bg-white p-8 rounded-lg shadow-2xl border-2 border-clay-dark">
-                        <h2 className="text-2xl font-bold mb-4 text-clay-dark">Importar desde una URL</h2>
-                        <form onSubmit={handleUrlSubmit}>
-                            <input
-                                type="text"
-                                className="w-full p-3 border-2 border-clay rounded-md focus:ring-2 focus:ring-accent focus:border-accent transition-shadow"
-                                placeholder="https://ejemplo.com"
-                                value={url}
-                                onChange={(e) => setUrl(e.target.value)}
-                            />
-                            <button type="submit" className="mt-4 w-full bg-rust-light hover:bg-rust text-white font-bold py-3 px-4 rounded-md transition-colors duration-300">
+                        <h2 className="text-2xl font-bold mb-4 text-clay-dark">Importar una creación</h2>
+                        <form onSubmit={handleImportSubmit}>
+                            <select 
+                                value={selectedPage}
+                                onChange={(e) => setSelectedPage(e.target.value)}
+                                className="w-full p-3 border-2 border-clay rounded-md focus:ring-2 focus:ring-accent focus:border-accent transition-shadow bg-white"
+                                disabled={pages.length === 0}
+                            >
+                                {pages.length === 0 ? (
+                                    <option>No hay páginas creadas</option>
+                                ) : (
+                                    pages.map(page => (
+                                        <option key={page.path} value={page.path}>{page.name}</option>
+                                    ))
+                                )}
+                            </select>
+                            <button type="submit" className="mt-4 w-full bg-rust-light hover:bg-rust text-white font-bold py-3 px-4 rounded-md transition-colors duration-300" disabled={pages.length === 0}>
                                 Importar y Editar
                             </button>
                         </form>

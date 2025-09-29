@@ -172,7 +172,7 @@ export const modifyCode = async (apiKey: string, model: GeminiModel, fullHtml: s
 
     REGLAS DE RESPUESTA:
     - Si necesitas hacer preguntas o dar aclaraciones, responde ÚNICAMENTE con texto plano.
-    - Si realizas cambios en el código, tu respuesta DEBE ser ÚNICAMENTE el código HTML COMPLETO Y ACTUALIZADO. No incluyas delimitadores de bloque de código markdown, explicaciones, ni ningún otro texto. Tu respuesta debe empezar directamente con 
+    - Si realizas cambios en el código, tu respuesta DEBE ser ÚNICAMENTE el código HTML COMPLETO Y ACTUALIZADO. No incluyas delimitadores de bloque de código markdown, explicaciones, ni ningún otro texto. Tu respuesta debe empezar directamente con `<!DOCTYPE html>.
     `;
     
     try {
@@ -216,4 +216,4 @@ export const cleanCodeForSave = async (apiKey: string, model: GeminiModel, fullH
         console.error("Error cleaning code:", error);
         return "<html><body><h1>Error al limpiar el código.</h1></body></html>";
     }
-};
+}

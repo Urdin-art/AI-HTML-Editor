@@ -68,8 +68,7 @@ foreach ($images as $img) {
     if (strpos($src, 'resources/') === 0) {
         $width = $img->getAttribute('width');
         $height = $img->getAttribute('height');
-        $sourcePath = __DIR__ . '/../' . $src;
-        $imageName = basename($src);
+                    $sourcePath = realpath(__DIR__ . '/../') . '/' . $src;        $imageName = basename($src);
         $destinationPath = $creationsImagesDir . '/' . $imageName;
 
         if ($width && $height && file_exists($sourcePath)) {

@@ -18,6 +18,7 @@ const App: React.FC = () => {
   const [docCount, setDocCount] = useState<number>(0);
   const [imgCount, setImgCount] = useState<number>(0);
   const [fileManagerKey, setFileManagerKey] = useState<number>(0);
+  const iframeRef = React.useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
     const savedApiKey = localStorage.getItem('gemini_api_key');
@@ -118,10 +119,38 @@ const App: React.FC = () => {
     startCreation(geminiService.generateInitialCode(apiKey, model, prompt, aiContext));
   };
 
-  const handleCreateFromUrl = (url: string) => {
+  const handleImportFromCreation = async (filePath: string) => {
     if (!apiKey) return;
-    setChatHistory([{ author: MessageAuthor.USER, content: `Cargar y modificar la página desde la URL: ${url}` }]);
-    startCreation(geminiService.processUrlHtml(apiKey, model, url, aiContext));
+    setIsLoading(true);
+    try {
+        const response = await fetch('/api/get_content.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ path: filePath })
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch page content.');
+        }
+        const cleanHtml = await response.text();
+
+        // Instrument the clean HTML with selection tools via AI
+        let instrumentedHtml = await geminiService.prepareImportedHtml(apiKey, model, cleanHtml);
+
+        if (instrumentedHtml.startsWith('```html')) {
+            instrumentedHtml = instrumentedHtml.slice(7).trim();
+        }
+        if (instrumentedHtml.endsWith('```')) {
+            instrumentedHtml = instrumentedHtml.slice(0, -3).trim();
+        }
+
+        setHtmlContent(instrumentedHtml);
+        setChatHistory([{ author: MessageAuthor.SYSTEM, content: `Página \"${filePath}\" cargada y preparada para edición.` }]);
+        setView(AppView.EDITOR);
+    } catch (error) {
+        console.error("Error importing from creation:", error);
+        alert("Error al importar la página seleccionada.");
+    }
+    setIsLoading(false);
   };
 
   const handleSendMessage = async (message: string) => {
@@ -131,7 +160,9 @@ const App: React.FC = () => {
     setChatHistory(updatedHistory);
     setIsLoading(true);
 
-    const response = await geminiService.modifyCode(apiKey, model, htmlContent, message, updatedHistory, aiContext);
+    const liveHtml = iframeRef.current?.contentDocument?.documentElement.outerHTML || htmlContent;
+
+    const response = await geminiService.modifyCode(apiKey, model, liveHtml, message, updatedHistory, aiContext);
     
     let cleanResponse = response.trim();
     if (cleanResponse.startsWith('```html')) {
@@ -246,7 +277,7 @@ const App: React.FC = () => {
   }
 
   if (view === AppView.HOME) {
-    return <HomeScreen onCreateFromPrompt={handleCreateFromPrompt} onCreateFromUrl={handleCreateFromUrl} isLoading={isLoading} onFileSelectionChange={handleFileSelectionChange} currentModel={model} onModelChange={setModel} fileManagerKey={fileManagerKey} />;
+    return <HomeScreen onCreateFromPrompt={handleCreateFromPrompt} onImportFromCreation={handleImportFromCreation} isLoading={isLoading} onFileSelectionChange={handleFileSelectionChange} currentModel={model} onModelChange={setModel} fileManagerKey={fileManagerKey} />;
   }
 
   return (
@@ -265,6 +296,7 @@ const App: React.FC = () => {
       docCount={docCount}
       imgCount={imgCount}
       fileManagerKey={fileManagerKey}
+      iframeRef={iframeRef}
     />
   );
 };

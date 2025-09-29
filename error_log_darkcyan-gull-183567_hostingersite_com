@@ -1,0 +1,142 @@
+[29-Sep-2025 03:45:12 UTC] [SAVE_PROCESS] ------ Save script started ------
+[29-Sep-2025 03:45:12 UTC] [SAVE_PROCESS] Received request to save minis.html
+[29-Sep-2025 03:45:12 UTC] [SAVE_PROCESS] Starting image resizing process...
+[29-Sep-2025 03:45:12 UTC] [SAVE_PROCESS] HTML content loaded into DOM.
+[29-Sep-2025 03:45:12 UTC] [SAVE_PROCESS] Found 16 image tags.
+[29-Sep-2025 03:45:12 UTC] [SAVE_PROCESS] Processing img tag with src: resources/468df06d-267e-4f90-af9f-e7f06f50d8c4.jpg
+[29-Sep-2025 03:45:12 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:12 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/468df06d-267e-4f90-af9f-e7f06f50d8c4.jpg
+[29-Sep-2025 03:45:12 UTC] [SAVE_PROCESS] Processing img tag with src: resources/777bded2-7435-40e2-9a01-09a2cf29f3f8.jpg
+[29-Sep-2025 03:45:12 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/777bded2-7435-40e2-9a01-09a2cf29f3f8.jpg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/alma.jpg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 512x512. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/alma.jpg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_c1e118ed-fd6b-4265-9ad2-f0b78d62d76e.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 360x360. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_c1e118ed-fd6b-4265-9ad2-f0b78d62d76e.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_1f598488-7375-4ab6-a4b6-cf28ed4033c6.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_large_1f598488-7375-4ab6-a4b6-cf28ed4033c6.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_23f772ff-a933-482a-aadd-a06f9223e8f4.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_large_23f772ff-a933-482a-aadd-a06f9223e8f4.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_29bfaa65-ccd4-43ab-89d9-7eb530650c3b.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_large_29bfaa65-ccd4-43ab-89d9-7eb530650c3b.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_2d069df7-3d8a-4e22-94e5-e1fa1a12f9a8.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_large_2d069df7-3d8a-4e22-94e5-e1fa1a12f9a8.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_2d43d681-077a-459a-a024-c439b0d5c781.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 912x912. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_large_2d43d681-077a-459a-a024-c439b0d5c781.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_3c840b23-6d61-4cc6-b002-1a5281670163.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_large_3c840b23-6d61-4cc6-b002-1a5281670163.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_3fce4e90-7270-4509-a278-8fd31bbf46af.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_large_3fce4e90-7270-4509-a278-8fd31bbf46af.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_4119912e-1a4a-4d5f-83e5-e83cdec30d4e.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_large_4119912e-1a4a-4d5f-83e5-e83cdec30d4e.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_6d5ee315-90eb-469e-923b-4415c82fab4f.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_large_6d5ee315-90eb-469e-923b-4415c82fab4f.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_8ab798af-5ba8-40b9-9161-9cf3a588ba58.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_large_8ab798af-5ba8-40b9-9161-9cf3a588ba58.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_b794f539-806a-4422-b93a-02a5177ab63c.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 1024x1024. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/image_large_b794f539-806a-4422-b93a-02a5177ab63c.jpeg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Processing img tag with src: resources/ñaw.jpg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Image is a resource with dimensions: 600x600. Attempting resize...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Resize successful. Image src updated to images/ñaw.jpg
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Finished processing images. Saving final HTML...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] HTML file saved successfully to /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../creations/minis.html
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] Cleaning up /resources directory...
+[29-Sep-2025 03:45:13 UTC] [SAVE_PROCESS] ------ Save script finished ------
+
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] ------ Save script started ------
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Received request to save minis.html
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Starting image resizing process...
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] HTML content loaded into DOM.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Found 16 image tags.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/468df06d-267e-4f90-af9f-e7f06f50d8c4.jpg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/468df06d-267e-4f90-af9f-e7f06f50d8c4.jpg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/777bded2-7435-40e2-9a01-09a2cf29f3f8.jpg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/777bded2-7435-40e2-9a01-09a2cf29f3f8.jpg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/alma.jpg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/alma.jpg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_c1e118ed-fd6b-4265-9ad2-f0b78d62d76e.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_c1e118ed-fd6b-4265-9ad2-f0b78d62d76e.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_1f598488-7375-4ab6-a4b6-cf28ed4033c6.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_1f598488-7375-4ab6-a4b6-cf28ed4033c6.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_23f772ff-a933-482a-aadd-a06f9223e8f4.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_23f772ff-a933-482a-aadd-a06f9223e8f4.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_29bfaa65-ccd4-43ab-89d9-7eb530650c3b.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_29bfaa65-ccd4-43ab-89d9-7eb530650c3b.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_2d069df7-3d8a-4e22-94e5-e1fa1a12f9a8.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_2d069df7-3d8a-4e22-94e5-e1fa1a12f9a8.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_2d43d681-077a-459a-a024-c439b0d5c781.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_2d43d681-077a-459a-a024-c439b0d5c781.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_3c840b23-6d61-4cc6-b002-1a5281670163.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_3c840b23-6d61-4cc6-b002-1a5281670163.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_3fce4e90-7270-4509-a278-8fd31bbf46af.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_3fce4e90-7270-4509-a278-8fd31bbf46af.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_4119912e-1a4a-4d5f-83e5-e83cdec30d4e.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_4119912e-1a4a-4d5f-83e5-e83cdec30d4e.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_6d5ee315-90eb-469e-923b-4415c82fab4f.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_6d5ee315-90eb-469e-923b-4415c82fab4f.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_8ab798af-5ba8-40b9-9161-9cf3a588ba58.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_8ab798af-5ba8-40b9-9161-9cf3a588ba58.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_b794f539-806a-4422-b93a-02a5177ab63c.jpeg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_b794f539-806a-4422-b93a-02a5177ab63c.jpeg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Processing img tag with src: resources/ñaw.jpg
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/ñaw.jpg and could not be processed.
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Finished processing images. Saving final HTML...
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] HTML file saved successfully to /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../creations/minis.html
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] Cleaning up /resources directory...
+[29-Sep-2025 04:04:42 UTC] [SAVE_PROCESS] ------ Save script finished ------
+
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] ------ Save script started ------
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Received request to save minis.html
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Starting image resizing process...
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] HTML content loaded into DOM.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Found 16 image tags.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/468df06d-267e-4f90-af9f-e7f06f50d8c4.jpg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/468df06d-267e-4f90-af9f-e7f06f50d8c4.jpg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/777bded2-7435-40e2-9a01-09a2cf29f3f8.jpg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/777bded2-7435-40e2-9a01-09a2cf29f3f8.jpg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/alma.jpg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/alma.jpg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_c1e118ed-fd6b-4265-9ad2-f0b78d62d76e.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_c1e118ed-fd6b-4265-9ad2-f0b78d62d76e.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_1f598488-7375-4ab6-a4b6-cf28ed4033c6.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_1f598488-7375-4ab6-a4b6-cf28ed4033c6.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_23f772ff-a933-482a-aadd-a06f9223e8f4.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_23f772ff-a933-482a-aadd-a06f9223e8f4.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_29bfaa65-ccd4-43ab-89d9-7eb530650c3b.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_29bfaa65-ccd4-43ab-89d9-7eb530650c3b.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_2d069df7-3d8a-4e22-94e5-e1fa1a12f9a8.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_2d069df7-3d8a-4e22-94e5-e1fa1a12f9a8.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_2d43d681-077a-459a-a024-c439b0d5c781.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_2d43d681-077a-459a-a024-c439b0d5c781.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_3c840b23-6d61-4cc6-b002-1a5281670163.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_3c840b23-6d61-4cc6-b002-1a5281670163.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_3fce4e90-7270-4509-a278-8fd31bbf46af.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_3fce4e90-7270-4509-a278-8fd31bbf46af.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_4119912e-1a4a-4d5f-83e5-e83cdec30d4e.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_4119912e-1a4a-4d5f-83e5-e83cdec30d4e.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_6d5ee315-90eb-469e-923b-4415c82fab4f.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_6d5ee315-90eb-469e-923b-4415c82fab4f.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_8ab798af-5ba8-40b9-9161-9cf3a588ba58.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_8ab798af-5ba8-40b9-9161-9cf3a588ba58.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/image_large_b794f539-806a-4422-b93a-02a5177ab63c.jpeg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/image_large_b794f539-806a-4422-b93a-02a5177ab63c.jpeg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Processing img tag with src: resources/ñaw.jpg
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] WARNING: Source file not found at /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../resources/ñaw.jpg and could not be processed.
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Finished processing images. Saving final HTML...
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] HTML file saved successfully to /home/u643065128/domains/darkcyan-gull-183567.hostingersite.com/public_html/api/../creations/minis.html
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] Cleaning up /resources directory...
+[29-Sep-2025 04:08:52 UTC] [SAVE_PROCESS] ------ Save script finished ------
+

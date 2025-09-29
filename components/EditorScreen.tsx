@@ -24,6 +24,7 @@ interface EditorScreenProps {
   docCount: number;
   imgCount: number;
   fileManagerKey: number;
+  iframeRef: React.RefObject<HTMLIFrameElement>;
 }
 
 const EditorScreen: React.FC<EditorScreenProps> = ({
@@ -41,12 +42,13 @@ const EditorScreen: React.FC<EditorScreenProps> = ({
   docCount,
   imgCount,
   fileManagerKey,
+  iframeRef,
 }) => {
   return (
-    <div className="relative h-screen w-screen grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 bg-stone-light">
-      <div className="col-span-1 md:col-span-2 lg:col-span-3 flex flex-col">
+    <div className="relative h-screen w-screen grid grid-cols-1 md:grid-cols-3 bg-stone-light">
+      <div className="col-span-1 md:col-span-2 flex flex-col">
         <div className="flex-grow">
-            <IframePreview htmlContent={htmlContent} onDeselectAll={onDeselectAll} />
+            <IframePreview htmlContent={htmlContent} onDeselectAll={onDeselectAll} ref={iframeRef} />
         </div>
         <SavePanel onSave={onSave} isLoading={saveStep !== 'idle'} />
       </div>
@@ -55,7 +57,7 @@ const EditorScreen: React.FC<EditorScreenProps> = ({
             <FileManager onSelectionChange={onFileSelectionChange} key={fileManagerKey} />
         </div>
         <ModelSelector currentModel={currentModel} onModelChange={onModelChange} />
-        <div className="relative flex-grow">
+        <div className="relative flex-grow min-h-0">
             <ChatPanel
               messages={chatMessages}
               onSendMessage={onSendMessage}
@@ -66,7 +68,7 @@ const EditorScreen: React.FC<EditorScreenProps> = ({
         </div>
       </div>
        {(isChatLoading || saveStep !== 'idle') && (
-        <div className="absolute inset-0 bg-stone-dark bg-opacity-40 flex justify-center items-center z-50 backdrop-blur-sm">
+        <div className="fixed inset-0 bg-stone-dark bg-opacity-40 flex justify-center items-center z-50 backdrop-blur-sm">
           <div className="bg-stone-light p-6 rounded-lg shadow-2xl flex items-center gap-4 border-2 border-clay-dark">
             <LoadingSpinner />
             <span className="text-lg font-semibold text-clay-dark">

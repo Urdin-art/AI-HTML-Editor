@@ -67,7 +67,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ messages, onSendMessage, onClearM
             className={`flex mb-4 ${msg.author === MessageAuthor.USER ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-xs md:max-w-md lg:max-w-lg px-4 py-3 rounded-2xl shadow ${{
+              className={`max-w-xs md:max-w-md lg:max-w-lg px-4 py-3 rounded-2xl shadow text-sm ${{
                 [MessageAuthor.USER]: 'bg-accent text-white rounded-br-none',
                 [MessageAuthor.GEMINI]: 'bg-white text-stone-dark rounded-bl-none',
                 [MessageAuthor.SYSTEM]: 'bg-stone-200 text-stone-dark rounded-none text-sm text-center w-full max-w-full',
